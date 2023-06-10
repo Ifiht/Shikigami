@@ -1,12 +1,14 @@
 require 'socket'
 require './library/lib_config.rb'
 
-$cfg = AppSettings.new
+cfg = AppSettings.new
+host = cfg.get("shiki_host")
+port = cfg.get("shiki_port")
 
-server = TCPServer.new($cfg.get("shiki_host"), $cfg.get("shiki_port")) # Server bind to port 1025
+server = TCPServer.new(host, port)
 loop do
-  client = server.accept    # Wait for a client to connect
-  client.puts "Hello !"
-  client.puts "Time is #{Time.now}"
-  client.close
+  Thread.start(server.accept) do |client|
+    client.puts "Time is #{Time.now}"
+    client.close
+  end
 end
