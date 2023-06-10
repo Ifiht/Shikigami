@@ -1,4 +1,6 @@
-# Shikigami
+<img src="https://raw.githubusercontent.com/Ifiht/Shikigami/main/resources/Ice_Spirit_by_Rasgar.png" width="108" height="108">
+
+# Shikigami 
 Personal conjured assistant template for fellow onmyōji :bookmark:
 
 ## Setup:
