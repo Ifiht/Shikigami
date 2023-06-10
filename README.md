@@ -1,5 +1,5 @@
 # Shikigami
-Personal conjured assistant template for fellow onmyōji :wind_chime:
+Personal conjured assistant template for fellow onmyōji :bookmark:
 
 ## Setup:
 Start by running `init.sh` after you create your own `config.yml` file.
