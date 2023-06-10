@@ -39,7 +39,7 @@ if ! [ -f ./config.yml ] && ! [ -f $HOME/.config/shikigami/config.yml ]; then
 fi #~WARNING~: the next line will ALWAYS overwrite with config.yml from the repo!
 if [ -f ./config.yml ]; then
         echo "Copying shikigami config file..."
-        cp ./config.yml $HOME/.config/shikigami/config
+        cp ./config.yml $HOME/.config/shikigami/config.yml
 fi
 
 #===========================<[ INSTALL DEPENDENCIES...

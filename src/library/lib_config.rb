@@ -1,7 +1,7 @@
 require 'yaml'
 
-Class AppSettings
-  config_hash = YAML.load(File.read("config.yml"))
+class AppSettings
+  config_hash = YAML.load(File.read("#{Dir.home}/.config/shikigami/config.yml"))
 
   def self.exists? (key)
     return config_hash.has_key?(key)
