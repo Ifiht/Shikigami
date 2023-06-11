@@ -15,6 +15,7 @@
 
 # Sensetive project files:
 /config.yml
+/responses.example
 
 # Ignore Byebug command history file.
 .byebug_history
