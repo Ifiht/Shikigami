@@ -1,7 +1,7 @@
 ---
 shiki_name: kuzunoha
-shiki_host: 127.0.0.1
-shiki_port: 9999
+beanstalk_host: 127.0.0.1
+beanstalk_port: 9999
 api_telegram_token: FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
 api_habitica_usrid: fffffffff-ffffffff-fffffffff-fffffff
 api_habitica_token: fffffffff-ffffffff-fffffffff-fffffff
