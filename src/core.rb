@@ -21,8 +21,13 @@ thread_habitica = Thread.start do
   loop do
     job = bstalk_habitica.tubes.reserve
     if job.exists?
-      eval job.body
-      job.delete
+      begin
+        eval job.body
+      rescue SyntaxError
+        puts "SyntaxError: #{job.body}"
+      ensure
+        job.delete
+      end
     end
   end
 end
