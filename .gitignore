@@ -16,7 +16,8 @@
 # Sensetive project files:
 /config.yml
 /responses.example
-/src/core.rb
+/src/events/*
+!/src/events/evt_example.md
 
 # Ignore Byebug command history file.
 .byebug_history
