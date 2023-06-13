@@ -1,8 +1,9 @@
 require 'beaneater'
+require './library/lib_core_config.rb'
 
 core_config = AppSettings.new
 beanstalk_host = core_config.get("beanstalk_host")
-beanstalk_host = core_config.get("beanstalk_port")
+beanstalk_port = core_config.get("beanstalk_port")
 
 # Connect to beanstalkd
 beanstalk = Beaneater.new("#{beanstalk_host}\:#{beanstalk_port}")

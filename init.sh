@@ -46,3 +46,7 @@ fi
 bash -c "source $HOME/.nvm/nvm.sh && npm install pm2 -g"
 gem install bundler
 bundle install
+
+#===========================<[ BUILD BEANSTALK...
+cd beanstalkd/
+make
