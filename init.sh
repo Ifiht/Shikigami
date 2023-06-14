@@ -47,6 +47,9 @@ bash -c "source $HOME/.nvm/nvm.sh && npm install pm2 -g"
 gem install bundler
 bundle install
 
+#===========================<[ INITIALIZE SUBMODULES...
+git submodule update --init --recursive
+
 #===========================<[ BUILD BEANSTALK...
 cd beanstalkd/
 make
