@@ -26,16 +26,16 @@ jobs:
         node-version: [16.x, 18.x]
 
     steps:
-    - uses: actions/checkout@v3
-    - name: Set up Ruby
-    # To automatically get bug fixes and new Ruby versions for ruby/setup-ruby,
-    # change this to (see https://github.com/ruby/setup-ruby#versioning):
-    # uses: ruby/setup-ruby@v1
+    - name: Checkout repository and submodules
+      uses: actions/checkout@v3
+      with:
+        submodules: recursive
+    - name: Using Ruby ${{ matrix.ruby-version }}
       uses: ruby/setup-ruby@v1
       with:
         ruby-version: ${{ matrix.ruby-version }}
         bundler-cache: true # runs 'bundle install' and caches installed gems automatically
-    - name: Use Node.js ${{ matrix.node-version }}
+    - name: Using Node.js ${{ matrix.node-version }}
       uses: actions/setup-node@v3
       with:
         node-version: ${{ matrix.node-version }}
@@ -43,7 +43,7 @@ jobs:
     - name: Install PM2 globally
       run: npm install pm2@latest -g
     - name: Build Beanstalkd
-      run: pwd && make
+      run: make
       working-directory: ./beanstalkd
     - name: Test PM2
       run: bundle exec rake list_pm2
