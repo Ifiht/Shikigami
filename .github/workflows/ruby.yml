@@ -26,8 +26,8 @@ jobs:
     #    node-version: [16.x, 18.x]
 
     steps:
-    #- name: Checkout repository and submodules
-    #  uses: actions/checkout@v3
+    - name: Checkout repository
+      uses: actions/checkout@v3
     #  with:
     #    submodules: recursive
     #- name: Using Ruby ${{ matrix.ruby-version }}
