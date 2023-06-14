@@ -6,10 +6,8 @@ task :do_nothing do
   puts "Success!"
 end
 
-task :pm2_start do
-  %x(pm2 start ecosystem.config.js)
+task :pm2_updown do
+  %x(pm2 start ecosystem.config.js --no-daemon)
+  %x(pm2 stop ecosystem.config.js --no-daemon)
 end
 
-task :pm2_stop do
-  %x(pm2 stop ecosystem.config.js)
-end
