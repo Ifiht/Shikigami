@@ -45,6 +45,8 @@ jobs:
     #- name: Build Beanstalkd
     #  run: make
     #  working-directory: ./beanstalkd
+    - name: Copy config.yml from example
+      run: cp config.example.yml config.yml
     - name: Run init.sh
       run: ./init.sh
     - name: Test PM2
