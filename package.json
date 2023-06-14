@@ -1,0 +1,27 @@
+{
+  "name": "shikigami",
+  "version": "1.0.0",
+  "description": "Personal conjured assistant template for fellow onmyōji 🔖",
+  "main": "src/core.rb",
+  "scripts": {
+    "test": "rake default"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Ifiht/Shikigami.git"
+  },
+  "keywords": [
+    "automation",
+    "bot",
+    "ruby"
+  ],
+  "author": "Ifiht",
+  "license": "GPL-3.0",
+  "bugs": {
+    "url": "https://github.com/Ifiht/Shikigami/issues"
+  },
+  "homepage": "https://github.com/Ifiht/Shikigami#readme",
+  "dependencies": {
+    "pm2": "^5.3.0"
+  }
+}

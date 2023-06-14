@@ -1,5 +1,5 @@
-![example workflow](https://github.com/Ifiht/Shikigami/actions/workflows/ruby.yml/badge.svg)
-  
+![build workflow](https://github.com/Ifiht/Shikigami/actions/workflows/ruby.yml/badge.svg)
+
 <img src="https://raw.githubusercontent.com/Ifiht/Shikigami/main/resources/Ice_Spirit_by_Rasgar.png" width="109" height="109">
 
 # Shikigami
