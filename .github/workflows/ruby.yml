@@ -17,37 +17,19 @@ permissions:
   contents: read
 
 jobs:
-  test:
+  Build_Run_Ubuntu:
 
     runs-on: ubuntu-latest
-    #strategy:
-    #  matrix:
-    #    ruby-version: ['2.7', '3.0', '3.1']
-    #    node-version: [16.x, 18.x]
 
     steps:
+    #==[ Clone the repository ]==|
     - name: Checkout repository
       uses: actions/checkout@v3
-    #  with:
-    #    submodules: recursive
-    #- name: Using Ruby ${{ matrix.ruby-version }}
-    #  uses: ruby/setup-ruby@v1
-    #  with:
-    #    ruby-version: ${{ matrix.ruby-version }}
-    #    bundler-cache: true # runs 'bundle install' and caches installed gems automatically
-    #- name: Using Node.js ${{ matrix.node-version }}
-    #  uses: actions/setup-node@v3
-    #  with:
-    #    node-version: ${{ matrix.node-version }}
-    #    cache: 'npm'
-    #- name: Install PM2 globally
-    #  run: npm install pm2@latest -g
-    #- name: Build Beanstalkd
-    #  run: make
-    #  working-directory: ./beanstalkd
+    #==[ Setup environment ]=====|
     - name: Copy config.yml from example
       run: cp config.example.yml config.yml
     - name: Run init.sh
       run: ./init.sh
+    #==[ Run tests ]=============|
     - name: Test PM2
       run: bundle exec rake list_pm2
