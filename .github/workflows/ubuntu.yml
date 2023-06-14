@@ -16,6 +16,10 @@ on:
 permissions:
   contents: read
 
+defaults:
+  run:
+    shell: bash -leo pipefail {0}
+    # doing this to make sure we read .bashrc
 jobs:
   Build_Run_Ubuntu:
 
@@ -30,6 +34,8 @@ jobs:
       run: cp config.example.yml config.yml
     - name: Run init.sh
       run: ./init.sh
+    #- name: Append to PATH
+    #  run: echo "${HOME}/.rvm/bin" >> $GITHUB_PATH
     #==[ Run tests ]=============|
     - name: Test PM2
       run: bundle exec rake list_pm2
