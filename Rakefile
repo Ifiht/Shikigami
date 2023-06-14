@@ -1,3 +1,5 @@
+task :default => :do_nothing
+
 desc "Dummy task."
 
 task :do_nothing do
