@@ -43,6 +43,7 @@ jobs:
     - name: Install PM2 globally
       run: npm install pm2@latest -g
     - name: Build Beanstalkd
-      run: bundle exec rake build_beanstalk
+      working-directory: ./beanstalkd
+      run: make
     - name: Test PM2
       run: bundle exec rake list_pm2
