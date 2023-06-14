@@ -45,7 +45,7 @@ fi
 #===========================<[ INSTALL DEPENDENCIES...
 bash -c "source $HOME/.nvm/nvm.sh && npm install pm2 -g"
 bash -c "source $HOME/.rvm/scripts/rvm && gem install bundler"
-hash -r
+source $HOME/.bashrc && hash -r
 bundle install
 
 #===========================<[ INITIALIZE SUBMODULES...
