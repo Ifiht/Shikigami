@@ -45,10 +45,12 @@ GEM
     pp (0.4.0)
       prettyprint
     prettyprint (0.1.1)
+    rake (13.0.6)
     rb-fsevent (0.11.2)
     rb-inotify (0.10.1)
       ffi (~> 1.0)
     ruby2_keywords (0.0.5)
+    rufo (0.16.1)
     telegram-bot-ruby (1.0.0)
       dry-struct (~> 1.6)
       faraday (~> 2.0)
@@ -67,6 +69,8 @@ DEPENDENCIES
   listen (~> 2.0)
   net-ping (~> 1.7, >= 1.7.8)
   pp
+  rake
+  rufo
   telegram-bot-ruby (~> 1.0)
 
 BUNDLED WITH
