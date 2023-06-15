@@ -41,11 +41,15 @@ if port_open?(beanstalk_host, beanstalk_port)
   bstalk.watch("tb_filesystem")
 
   threads << Thread.new {
-    bstalk.reserve("tb_manual")
+    loop do
+      bstalk.reserve("tb_manual")
+    end
   }
 
   threads << Thread.new {
-    bstalk.reserve("tb_filesystem")
+    loop do
+      bstalk.reserve("tb_filesystem")
+    end
   }
 
   #[[[[[[ JOIN THREADS ]]]]]]
