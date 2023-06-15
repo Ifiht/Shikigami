@@ -35,25 +35,26 @@ end #def
 if port_open?(beanstalk_host, beanstalk_port)
 
   #[[[[[[ DEFINE THREADS ]]]]]]
-  thread_manual = Thread.start do
+  threads = []
+
+  threads << Thread.new {
     bstalk_manual = BeanLoop.new(beanstalk_host, beanstalk_port, "tb_manual")
     bstalk_manual.run
-  end #thread_manual
+  }
 
-  thread_telegram = Thread.start do
+  threads << Thread.new {
     bstalk_telegram = BeanLoop.new(beanstalk_host, beanstalk_port, "tb_telegram")
     bstalk_telegram.run
-  end #thread_telegram
+  }
 
-  thread_filesystem = Thread.start do
+  threads << Thread.new {
     bstalk_filesystem = BeanLoop.new(beanstalk_host, beanstalk_port, "tb_filesystem")
     bstalk_filesystem.run
-  end #thread_filesystem
+  }
 
   #[[[[[[ JOIN THREADS ]]]]]]
-  thread_manual.join
-  thread_telegram.join
-  thread_filesystem.join
+  threads.each { |thr| thr.join }
+
 else
   puts "Cannot initialize threads, beanstalkd not reachable."
   exit 2
