@@ -42,10 +42,10 @@ if port_open?(beanstalk_host, beanstalk_port)
   bstalk.tubes.find("tb_filesystem")
   bstalk.tubes.watch("tb_manual")
   bstalk.tubes.watch("tb_filesystem")
-  job = bstalk.tubes.reserve
 
   threads << Thread.new {
     loop do
+      job = bstalk.tubes.reserve
       if job.exists?
         begin
           eval job.body
