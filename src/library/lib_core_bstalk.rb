@@ -1,7 +1,7 @@
 #=============<[ Gems ]>=============#
 require "beaneater"
 #==========<[ Local Libs ]>==========#
-require "./library/lib_core_config.rb"
+require_relative "lib_core_config"
 
 class BeanLoop
   def initialize(beanstalk_host = "127.0.0.1", beanstalk_port = 9999, beanstalk_tube = "default")

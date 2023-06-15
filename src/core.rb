@@ -2,10 +2,10 @@
 require "json"
 require "socket"
 #==========<[ Local Libs ]>==========#
-require_relative "./library/lib_core_config.rb"
-require_relative "./library/lib_core_bstalk.rb"
-require_relative "./library/lib_habitica.rb"
-require_relative "./library/lib_telegram.rb"
+require_relative "./library/lib_core_config"
+require_relative "./library/lib_core_bstalk"
+require_relative "./library/lib_habitica"
+require_relative "./library/lib_telegram"
 
 #[[[[[[ INITIALIZE CONFIG & ALL LIBRARY CLASSES HERE]]]]]]
 core_config = AppSettings.new
