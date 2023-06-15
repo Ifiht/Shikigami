@@ -42,8 +42,8 @@ if port_open?(beanstalk_host, beanstalk_port)
   bstalk.tubes.find("tb_filesystem")
   bstalk.tubes.watch("tb_manual")
   bstalk.tubes.watch("tb_filesystem")
-  tube_manual = @bstalk.tubes["tb_manual"]
-  tube_filesystem = @bstalk.tubes["tb_filesystem"]
+  tube_manual = bstalk.tubes["tb_manual"]
+  tube_filesystem = bstalk.tubes["tb_filesystem"]
 
   threads << Thread.new {
     loop do
