@@ -7,7 +7,7 @@ task :do_nothing do
 end
 
 task :pm2_start do
-  if system(pm2 start ecosystem.config.js)
+  if system("pm2 start ecosystem.config.js")
     puts "PM2 launched successfully."
   else
     exit 2
@@ -15,7 +15,7 @@ task :pm2_start do
 end
 
 task :pm2_stop do
-  if system(pm2 stop ecosystem.config.js)
+  if system("pm2 stop ecosystem.config.js")
     puts "PM2 stopped successfully."
   else
     exit 3
