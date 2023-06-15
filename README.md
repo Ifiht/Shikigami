@@ -1,4 +1,6 @@
-![build workflow](https://github.com/Ifiht/Shikigami/actions/workflows/ruby.yml/badge.svg)
+![Ubuntu build](https://github.com/Ifiht/Shikigami/actions/workflows/ubuntu.yml/badge.svg)
+![MacOS build](https://github.com/Ifiht/Shikigami/actions/workflows/macos.yml/badge.svg)
+![Formatting Check](https://github.com/Ifiht/Shikigami/actions/workflows/syntax.yml/badge.svg)
 
 <img src="https://raw.githubusercontent.com/Ifiht/Shikigami/main/resources/Ice_Spirit_by_Rasgar.png" width="109" height="109">
 
