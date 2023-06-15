@@ -9,7 +9,7 @@
 #| mainly with ad-hoc tasks, or schedulers like cron.            ||
 #\===============================================================//
 require "beaneater"
-require_relative "../library/lib_core_config.rb"
+require_relative "../library/lib_core_config"
 
 # Get user settings
 core_config = AppSettings.new

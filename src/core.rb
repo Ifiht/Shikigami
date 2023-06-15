@@ -36,19 +36,19 @@ if port_open?(beanstalk_host, beanstalk_port)
 
   #[[[[[[ DEFINE THREADS ]]]]]]
   threads = []
+  bstalk_manual = BeanLoop.new(beanstalk_host, beanstalk_port, "tb_manual")
+  bstalk_telegram = BeanLoop.new(beanstalk_host, beanstalk_port, "tb_telegram")
+  bstalk_filesystem = BeanLoop.new(beanstalk_host, beanstalk_port, "tb_filesystem")
 
   threads << Thread.new {
-    bstalk_manual = BeanLoop.new(beanstalk_host, beanstalk_port, "tb_manual")
     bstalk_manual.run
   }
 
   threads << Thread.new {
-    bstalk_telegram = BeanLoop.new(beanstalk_host, beanstalk_port, "tb_telegram")
     bstalk_telegram.run
   }
 
   threads << Thread.new {
-    bstalk_filesystem = BeanLoop.new(beanstalk_host, beanstalk_port, "tb_filesystem")
     bstalk_filesystem.run
   }
 
