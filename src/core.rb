@@ -47,15 +47,18 @@ if port_open?(beanstalk_host, beanstalk_port)
     loop do
       job = bstalk.tubes.reserve
       if job.exists?
-        begin
-          eval job.body
-        rescue SyntaxError
-          puts "SyntaxError: #{job.body}"
-        rescue NameError
-          puts "NameError: #{job.body}"
-        ensure
-          job.delete
-        end #begin
+        threads << Thread.new {
+          begin
+            eval job.body
+          rescue SyntaxError
+            puts "SyntaxError: #{job.body}"
+          rescue NameError
+            puts "NameError: #{job.body}"
+          ensure
+            job.delete
+            Thread.current.exit
+          end #begin
+        }
       end #if
     end
   }
