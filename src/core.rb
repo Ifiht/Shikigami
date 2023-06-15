@@ -2,6 +2,7 @@
 require "json"
 require "socket"
 require "beaneater"
+require "concurrent"
 #==========<[ Local Libs ]>==========#
 require_relative "./library/lib_core_config"
 #require_relative "./library/lib_core_bstalk"
@@ -36,35 +37,47 @@ end #def
 if port_open?(beanstalk_host, beanstalk_port)
 
   #[[[[[[ DEFINE THREADS ]]]]]]
-  threads = []
+  core_threads = []
+  eval_threads = []
+  semaphore = Mutex.new
   bstalk = Beaneater.new("#{beanstalk_host}\:#{beanstalk_port}")
   bstalk.tubes.find("tb_manual")
   bstalk.tubes.find("tb_filesystem")
   bstalk.tubes.watch("tb_manual")
   bstalk.tubes.watch("tb_filesystem")
 
-  threads << Thread.new {
+  core_threads << Thread.new {
     loop do
       job = bstalk.tubes.reserve
       if job.exists?
-        threads << Thread.new {
-          begin
-            eval job.body
-          rescue SyntaxError
-            puts "SyntaxError: #{job.body}"
-          rescue NameError
-            puts "NameError: #{job.body}"
-          ensure
-            job.delete
-            Thread.current.exit
-          end #begin
+        semaphore.synchronize {
+          eval_threads << Thread.new {
+            begin
+              eval job.body
+            rescue SyntaxError
+              puts "SyntaxError: #{job.body}"
+            rescue NameError
+              puts "NameError: #{job.body}"
+            ensure
+              job.delete
+              Thread.current.exit
+            end #begin
+          }
         }
       end #if
-    end
+    end #loop
+  }
+
+  core_threads << Thread.new {
+    loop do
+      semaphore.synchronize {
+        eval_threads.each { |thr| thr.join }
+      }
+    end #loop
   }
 
   #[[[[[[ JOIN THREADS ]]]]]]
-  threads.each { |thr| thr.join }
+  core_threads.each { |thr| thr.join }
 
 else
   puts "Cannot initialize threads, beanstalkd not reachable."
