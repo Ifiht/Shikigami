@@ -42,27 +42,10 @@ if port_open?(beanstalk_host, beanstalk_port)
   bstalk.tubes.find("tb_filesystem")
   bstalk.tubes.watch("tb_manual")
   bstalk.tubes.watch("tb_filesystem")
-  tube_manual = bstalk.tubes["tb_manual"]
-  tube_filesystem = bstalk.tubes["tb_filesystem"]
+  job = bstalk.tubes.reserve
 
   threads << Thread.new {
     loop do
-      job = tube_manual.reserve
-      if job.exists?
-        begin
-          eval job.body
-        rescue SyntaxError
-          puts "SyntaxError: #{job.body}"
-        ensure
-          job.delete
-        end #begin
-      end #if
-    end
-  }
-
-  threads << Thread.new {
-    loop do
-      job = tube_filesystem.reserve
       if job.exists?
         begin
           eval job.body
