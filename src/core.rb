@@ -1,9 +1,10 @@
 #=============<[ Gems ]>=============#
 require "json"
 require "socket"
+require "beaneater"
 #==========<[ Local Libs ]>==========#
 require_relative "./library/lib_core_config"
-require_relative "./library/lib_core_bstalk"
+#require_relative "./library/lib_core_bstalk"
 require_relative "./library/lib_habitica"
 require_relative "./library/lib_telegram"
 
@@ -36,9 +37,13 @@ if port_open?(beanstalk_host, beanstalk_port)
 
   #[[[[[[ DEFINE THREADS ]]]]]]
   threads = []
-  bstalk = BeanConn.new(beanstalk_host, beanstalk_port)
-  tube_manual = bstalk.get_tube("tb_manual")
-  tube_filesystem = bstalk.get_tube("tb_filesystem")
+  bstalk = Beaneater.new("#{beanstalk_host}\:#{beanstalk_port}")
+  bstalk.tubes.find("tb_manual")
+  bstalk.tubes.find("tb_filesystem")
+  bstalk.tubes.watch("tb_manual")
+  bstalk.tubes.watch("tb_filesystem")
+  tube_manual = @bstalk.tubes["tb_manual"]
+  tube_filesystem = @bstalk.tubes["tb_filesystem"]
 
   threads << Thread.new {
     loop do
