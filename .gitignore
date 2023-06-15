@@ -18,7 +18,7 @@ node_modules/
 /config.yml
 /responses.example
 /src/events/*
-!/src/events/evt_example.md
+!/src/events/evt_manual.rb
 
 # Ignore Byebug command history file.
 .byebug_history

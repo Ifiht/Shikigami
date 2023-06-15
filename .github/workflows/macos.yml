@@ -21,7 +21,7 @@ defaults:
     shell: bash -leo pipefail {0}
     # doing this to make sure we read .bashrc
 jobs:
-  Build_Run_Ubuntu:
+  Build_Run_MacOS:
 
     runs-on: macos-latest
 

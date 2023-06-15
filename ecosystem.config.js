@@ -18,7 +18,7 @@ module.exports = {
       repo : 'https://github.com/Ifiht/Shikigami.git',
       path : '$HOME/Shikigami',
       'pre-deploy-local': './init.sh',
-      'post-deploy' : 'npm install && pm2 reload ecosystem.config.js --env production',
+      'post-deploy' : 'npm install pm2 -g && pm2 reload ecosystem.config.js --env production',
       'pre-setup': ''
     }
   }
