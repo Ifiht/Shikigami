@@ -51,6 +51,8 @@ if port_open?(beanstalk_host, beanstalk_port)
           eval job.body
         rescue SyntaxError
           puts "SyntaxError: #{job.body}"
+        rescue NameError
+          puts "NameError: #{job.body}"
         ensure
           job.delete
         end #begin
