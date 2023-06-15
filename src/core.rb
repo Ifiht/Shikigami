@@ -37,8 +37,6 @@ if port_open?(beanstalk_host, beanstalk_port)
   #[[[[[[ DEFINE THREADS ]]]]]]
   threads = []
   bstalk = BeanConn.new(beanstalk_host, beanstalk_port)
-  bstalk.watch("tb_manual")
-  bstalk.watch("tb_filesystem")
   tube_manual = bstalk.get_tube("tb_manual")
   tube_filesystem = bstalk.get_tube("tb_filesystem")
 
