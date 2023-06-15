@@ -37,7 +37,7 @@ jobs:
     - name: Start PM2 daemon
       run: pm2 ping
     #==[ Run tests ]=============|
-    - name: Start PM2
+    - name: Start PM2 ecosystem
       run: bundle exec rake pm2_start
-    - name: Stop PM2
+    - name: Stop PM2 ecosystem
       run: bundle exec rake pm2_stop

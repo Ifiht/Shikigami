@@ -1,7 +1,7 @@
 module.exports = {
   apps : [{
     name   : "beanstalk",
-    script: '/.beanstalkd/beanstalkd',
+    script: './beanstalkd/beanstalkd',
     args: '-l 127.0.0.2 -p 9999'
   },
   {
