@@ -34,6 +34,10 @@ jobs:
       run: cp config.example.yml config.yml
     - name: Run init.sh
       run: ./init.sh
+    - name: Start PM2 daemon
+      run: pm2 ping
     #==[ Run tests ]=============|
-    - name: Start and Stop PM2
-      run: bundle exec rake pm2_updown
+    - name: Start PM2
+      run: bundle exec rake pm2_start
+    - name: Stop PM2
+      run: bundle exec rake pm2_stop

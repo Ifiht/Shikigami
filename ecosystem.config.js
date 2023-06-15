@@ -3,6 +3,11 @@ module.exports = {
     name   : "beanstalk",
     script: '/.beanstalkd/beanstalkd',
     args: '-l 127.0.0.2 -p 9999'
+  },
+  {
+    name   : "core.rb",
+    script: 'ruby',
+    args: './src/core.rb'
   }],
 
   deploy : {
