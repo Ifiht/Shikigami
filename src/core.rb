@@ -91,7 +91,6 @@ if port_open?(beanstalk_host, beanstalk_port)
 
   #[[[[[[ JOIN THREADS ]]]]]]
   core_threads.each { |thr| thr.join }
-
 else
   puts "Cannot initialize threads, beanstalkd not reachable at #{beanstalk_host}, #{beanstalk_port}."
   exit 2
