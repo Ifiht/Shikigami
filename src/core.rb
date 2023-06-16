@@ -80,6 +80,7 @@ if port_open?(beanstalk_host, beanstalk_port)
   core_threads << Thread.new {
     loop do
       if not job_threads.empty?
+        a = [] # Initialize empty holder array for jobs
         semaphore.synchronize { # Only modify job_threads in semaphore
           a = job_threads
           job_threads = []
@@ -87,6 +88,20 @@ if port_open?(beanstalk_host, beanstalk_port)
         a.each { |thr| thr.join }
       end #if
     end #loop
+  }
+
+  #[[[[[[ CATCH INTERRUPT ]]]]]]
+  Signal.trap("INT") {
+    log_to_pm2 "Exiting gracefully"
+    job_threads.each { |t|
+      log_to_pm2 "killing thread"
+      t.kill
+    }
+    core_threads.each { |t|
+      log_to_pm2 "killing thread"
+      t.kill
+    }
+    exit
   }
 
   #[[[[[[ JOIN THREADS ]]]]]]

@@ -18,6 +18,6 @@ beanstalk_port = core_config.get("beanstalk_port")
 
 # Connect to beanstalkd
 beanstalk = Beaneater.new("#{beanstalk_host}\:#{beanstalk_port}")
-tube = beanstalk.tubes["tb_manual"]
+tube = beanstalk.tubes["shikigami"]
 tube.put ARGV[0]
 beanstalk.close
