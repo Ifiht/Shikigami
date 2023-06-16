@@ -2,10 +2,10 @@
 require "json"
 require "socket"
 require "beaneater"
+require "io/console"
 require "concurrent"
 #==========<[ Local Libs ]>==========#
 require_relative "./library/lib_core_config"
-#require_relative "./library/lib_core_bstalk"
 require_relative "./library/lib_habitica"
 require_relative "./library/lib_telegram"
 
@@ -33,46 +33,59 @@ def port_open?(ip, port)
   end #do
 end #def
 
+def log_to_pm2(message)
+  $stdout.puts message
+  $stdout.flush
+end
+
+def eval_string(str)
+  begin
+    eval str
+  rescue SyntaxError
+    log_to_pm2("SyntaxError: #{str}")
+  rescue NameError
+    log_to_pm2("NameError: #{str}")
+  end #begin
+end #def
+
 #[[[[[[ PORT CHECK FOR SHIKIGAMI EXTERNAL RESOURCES ]]]]]]
 if port_open?(beanstalk_host, beanstalk_port)
 
   #[[[[[[ DEFINE THREADS ]]]]]]
   core_threads = []
-  eval_threads = []
+  job_threads = []
   semaphore = Mutex.new
   bstalk = Beaneater.new("#{beanstalk_host}\:#{beanstalk_port}")
-  bstalk.tubes.find("tb_manual")
-  bstalk.tubes.find("tb_filesystem")
-  bstalk.tubes.watch("tb_manual")
-  bstalk.tubes.watch("tb_filesystem")
+  bstalk.tubes.find("shikigami")
+  bstalk.tubes.watch!("shikigami")
 
+  # Core thread to check for jobs and add them to the jobs array
   core_threads << Thread.new {
     loop do
       job = bstalk.tubes.reserve
       if job.exists?
-        semaphore.synchronize {
-          eval_threads << Thread.new {
-            begin
-              eval job.body
-            rescue SyntaxError
-              puts "SyntaxError: #{job.body}"
-            rescue NameError
-              puts "NameError: #{job.body}"
-            ensure
-              job.delete
-              Thread.current.exit
-            end #begin
+        str = job.body
+        semaphore.synchronize { # Only modify job_threads in semaphore
+          job_threads << Thread.new {
+            eval_string(str)
+            Thread.current.exit
           }
         }
+        job.delete
       end #if
     end #loop
   }
 
+  # Core thread to check the jobs array and join if not empty
   core_threads << Thread.new {
     loop do
-      semaphore.synchronize {
-        eval_threads.each { |thr| thr.join }
-      }
+      if not job_threads.empty?
+        semaphore.synchronize { # Only modify job_threads in semaphore
+          a = job_threads
+          job_threads = []
+        } # Moving the jobs to array 'a' allows us to re-use job_threads
+        a.each { |thr| thr.join }
+      end #if
     end #loop
   }
 
@@ -80,6 +93,6 @@ if port_open?(beanstalk_host, beanstalk_port)
   core_threads.each { |thr| thr.join }
 
 else
-  puts "Cannot initialize threads, beanstalkd not reachable."
+  puts "Cannot initialize threads, beanstalkd not reachable at #{beanstalk_host}, #{beanstalk_port}."
   exit 2
 end #if
