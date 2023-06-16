@@ -93,13 +93,17 @@ if port_open?(beanstalk_host, beanstalk_port)
   #[[[[[[ CATCH INTERRUPT ]]]]]]
   Signal.trap("INT") {
     log_to_pm2 "Exiting gracefully"
+    i = 0
     job_threads.each { |t|
-      log_to_pm2 "killing thread"
+      log_to_pm2 "killing job thread #{i}..."
       t.kill
+      i += 1
     }
+    i = 0
     core_threads.each { |t|
-      log_to_pm2 "killing thread"
+      log_to_pm2 "killing core thread #{i}..."
       t.kill
+      i += 1
     }
     exit
   }
