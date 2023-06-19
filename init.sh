@@ -5,8 +5,8 @@
 #| create the config directory and copy the     |
 #| config files if they do not exist.           |
 #\+++++++++++++++++++++++++++++++++++++++++++++/
-RUBY_VERS="3.1.4"
-NODE_VERS="16.20.0"
+RUBY_VERS="3.1"
+NODE_VERS="16.20"
 #===========================<[ RVM INSTALL...
 if ! [ -d $HOME/.rvm ]; then
         echo "Installing RVM..."
