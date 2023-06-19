@@ -5,7 +5,7 @@
 #| create the config directory and copy the     |
 #| config files if they do not exist.           |
 #\+++++++++++++++++++++++++++++++++++++++++++++/
-RUBY_VERS="3.1"
+RUBY_VERS="3.1.4"
 NODE_VERS="16.20"
 #===========================<[ RVM INSTALL...
 if ! [ -d $HOME/.rvm ]; then
@@ -46,6 +46,8 @@ fi
 
 #===========================<[ INSTALL DEPENDENCIES...
 bash -c "source $HOME/.nvm/nvm.sh && npm install pm2 -g"
+bash -c "source $HOME/.rvm/scripts/rvm && rvm gemset create shikigami"
+bash -c "source $HOME/.rvm/scripts/rvm && rvm gemset use shikigami"
 bash -c "source $HOME/.rvm/scripts/rvm && gem install bundler"
 bash -c "source $HOME/.rvm/scripts/rvm && bundle"
 
