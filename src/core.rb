@@ -4,10 +4,9 @@ require "socket"
 require "beaneater"
 require "io/console"
 require "concurrent"
+require "require_all"
 #==========<[ Local Libs ]>==========#
-require_relative "./library/lib_core_config"
-require_relative "./library/lib_habitica"
-require_relative "./library/lib_telegram"
+require_rel "library/*.rb"
 
 #[[[[[[ INITIALIZE CONFIG & ALL LIBRARY CLASSES HERE]]]]]]
 core_config = AppSettings.new
@@ -92,7 +91,6 @@ if port_open?(beanstalk_host, beanstalk_port)
 
   #[[[[[[ CATCH INTERRUPT ]]]]]]
   Signal.trap("INT") {
-    log_to_pm2 "Exiting gracefully"
     i = 0
     job_threads.each { |t|
       log_to_pm2 "killing job thread #{i}..."
@@ -101,10 +99,11 @@ if port_open?(beanstalk_host, beanstalk_port)
     }
     i = 0
     core_threads.each { |t|
-      log_to_pm2 "killing core thread #{i}..."
+      log_to_pm2 "killing core thread #{i}.."
       t.kill
       i += 1
     }
+    log_to_pm2 "Exiting gracefully."
     exit
   }
 
