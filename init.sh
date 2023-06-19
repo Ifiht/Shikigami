@@ -5,13 +5,15 @@
 #| create the config directory and copy the     |
 #| config files if they do not exist.           |
 #\+++++++++++++++++++++++++++++++++++++++++++++/
+RUBY_VERS="3.1.4"
+NODE_VERS="16.20.0"
 #===========================<[ RVM INSTALL...
 if ! [ -d $HOME/.rvm ]; then
         echo "Installing RVM..."
         curl -sSL https://rvm.io/mpapis.asc | gpg --import -
         curl -sSL https://rvm.io/pkuczynski.asc | gpg --import -
         curl -sSL https://get.rvm.io | bash -s stable
-        bash -c "source $HOME/.rvm/scripts/rvm && rvm get head && rvm install 3.1"
+        bash -c "source $HOME/.rvm/scripts/rvm && rvm get head && rvm install $RUBY_VERS"
 fi
 
 #===========================<[ NVM INSTALL...
@@ -19,7 +21,7 @@ if ! [ -d $HOME/.nvm ]; then
         echo "Installing NVM..."
         mkdir $HOME/.nvm
         curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.3/install.sh | bash
-        bash -c "source $HOME/.nvm/nvm.sh && nvm install 16"
+        bash -c "source $HOME/.nvm/nvm.sh && nvm install $NODE_VERS"
 fi
 
 #===========================<[ CONFIG DIR CREATION...
