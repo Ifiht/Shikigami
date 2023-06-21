@@ -50,6 +50,7 @@ bash -c "source $HOME/.rvm/scripts/rvm && rvm gemset create shikigami"
 bash -c "source $HOME/.rvm/environments/ruby-3.1.4@shikigami && gem install bundler"
 bash -c "source $HOME/.rvm/environments/ruby-3.1.4@shikigami && bundle"
 bash -c "source $HOME/.rvm/environments/ruby-3.1.4@shikigami && rvm cron setup"
+bash -c "source $HOME/.rvm/environments/ruby-3.1.4@shikigami && rvm --default use ruby-3.1.4@shikigami"
 
 #===========================<[ INITIALIZE SUBMODULES...
 git submodule update --init --recursive
