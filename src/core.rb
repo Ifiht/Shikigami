@@ -8,16 +8,20 @@ require "require_all"
 #==========<[ Local Libs ]>==========#
 require_rel "library/*.rb"
 
+#@@@@@@ USERS MAY EDIT THEIR SETTINGS BELOW:
 #[[[[[[ INITIALIZE CONFIG & ALL LIBRARY CLASSES HERE]]]]]]
 core_config = AppSettings.new
 beanstalk_host = core_config.get("beanstalk_host")
 beanstalk_port = core_config.get("beanstalk_port")
 habitica_usrid = core_config.get("api_habitica_usrid")
 habitica_token = core_config.get("api_habitica_token")
-
+# Add your config settings HERE
 @habitica = HabActions.new(habitica_usrid, habitica_token)
-#habitica.msgParty('Hello world.')
+# Add your class variable HERE
 
+############################################################
+#@@@@@@@@@@ DO NOT EDIT BELOW THIS LINE!!!! @@@@@@@@@@@@@@@#
+############################################################
 #[[[[[[ DEFINE CHECK PORT OPEN ]]]]]]
 def port_open?(ip, port)
   Timeout::timeout(2) do
