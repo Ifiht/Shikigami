@@ -47,9 +47,9 @@ fi
 #===========================<[ INSTALL DEPENDENCIES...
 bash -c "source $HOME/.nvm/nvm.sh && npm install pm2 -g"
 bash -c "source $HOME/.rvm/scripts/rvm && rvm gemset create shikigami"
-bash -c "source $HOME/.rvm/scripts/rvm && rvm gemset use shikigami"
-bash -c "source $HOME/.rvm/scripts/rvm && gem install bundler"
-bash -c "source $HOME/.rvm/scripts/rvm && bundle"
+bash -c "source $HOME/.rvm/environments/ruby-3.1.4@shikigami && gem install bundler"
+bash -c "source $HOME/.rvm/environments/ruby-3.1.4@shikigami && bundle"
+bash -c "source $HOME/.rvm/environments/ruby-3.1.4@shikigami && rvm cron setup"
 
 #===========================<[ INITIALIZE SUBMODULES...
 git submodule update --init --recursive

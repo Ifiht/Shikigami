@@ -15,7 +15,7 @@ beanstalk_port = core_config.get("beanstalk_port")
 habitica_usrid = core_config.get("api_habitica_usrid")
 habitica_token = core_config.get("api_habitica_token")
 
-habitica = HabActions.new(habitica_usrid, habitica_token)
+@habitica = HabActions.new(habitica_usrid, habitica_token)
 #habitica.msgParty('Hello world.')
 
 #[[[[[[ DEFINE CHECK PORT OPEN ]]]]]]
