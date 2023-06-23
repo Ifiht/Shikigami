@@ -44,6 +44,12 @@ if [ -f ./config.yml ]; then
         cp ./config.yml $HOME/.config/shikigami/config.yml
 fi
 
+#===========================<[ CHECK FOR PM2 CONFIG...
+if ! [ -f ./ecosystem.config.js ]; then
+        echo 'WARNING: copying example ecosystem file to use...'
+        cp ./example.ecosystem.config.js ./ecosystem.config.js
+fi
+
 #===========================<[ INSTALL DEPENDENCIES...
 bash -c "source $HOME/.nvm/nvm.sh && npm install pm2 -g"
 bash -c "source $HOME/.rvm/scripts/rvm && rvm gemset create shikigami"
