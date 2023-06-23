@@ -16,6 +16,7 @@ node_modules/
 
 # Sensetive project files:
 /config.yml
+/ecosystem.config.js
 /responses.example
 /src/events/*
 !/src/events/evt_manual.rb
