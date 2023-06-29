@@ -1,1 +1,7 @@
-require "telegram-bot-ruby"
+require "telegram/bot"
+
+class TelegramBot
+  def doNothing
+    return nil
+  end #def
+end #class

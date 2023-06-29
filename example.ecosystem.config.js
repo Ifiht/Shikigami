@@ -9,7 +9,8 @@ module.exports = {
     script: 'ruby',
     args: './src/core.rb',
     watch: true,
-    restart_delay: 500
+    restart_delay: 1000,
+    exp_backoff_restart_delay: 200
   }],
 
   deploy : {
