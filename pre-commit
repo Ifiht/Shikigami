@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+
+OLDVERS=`sed '3q;d' package.json |  cut -d'"' -f4`
+NEWVERS=`echo $OLDVERS | awk -F. -v OFS=. '{$NF += 1 ; print}'`
+echo "Updating version string to $NEWVERS..."
+
+sed -i "s/$OLDVERS/$NEWVERS/g" package.json
+
+rufo . || true
