@@ -68,6 +68,7 @@ if port_open?(beanstalk_host, beanstalk_port)
       job = bstalk.tubes.reserve
       if job.exists?
         str = job.body
+        log_to_pm2("Received job: #{str}")
         semaphore.synchronize { # Only modify job_threads in semaphore
           job_threads << Thread.new {
             eval_string(str)

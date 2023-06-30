@@ -47,7 +47,7 @@ class HabActions
   end #def
 
   def upCheckTask(taskId)
-    http = HTTPX.get("https://habitica.com/api/v3/tasks/#{taskId}/score/up",
+    http = HTTPX.post("https://habitica.com/api/v3/tasks/#{taskId}/score/up",
                      headers: { "x-api-user" => @habId, "x-api-key" => @habToken })
     if http.status == 200
       puts PP.pp(JSON.parse(http.body))
@@ -57,7 +57,7 @@ class HabActions
   end #def
 
   def downCheckTask(taskId)
-    http = HTTPX.get("https://habitica.com/api/v3/tasks/#{taskId}/score/down",
+    http = HTTPX.post("https://habitica.com/api/v3/tasks/#{taskId}/score/down",
                      headers: { "x-api-user" => @habId, "x-api-key" => @habToken })
     if http.status == 200
       puts PP.pp(JSON.parse(http.body))
