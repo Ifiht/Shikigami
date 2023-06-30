@@ -48,7 +48,7 @@ class HabActions
 
   def upCheckTask(taskId)
     http = HTTPX.post("https://habitica.com/api/v3/tasks/#{taskId}/score/up",
-                     headers: { "x-api-user" => @habId, "x-api-key" => @habToken })
+                      headers: { "x-api-user" => @habId, "x-api-key" => @habToken })
     if http.status == 200
       puts PP.pp(JSON.parse(http.body))
     else
@@ -58,7 +58,7 @@ class HabActions
 
   def downCheckTask(taskId)
     http = HTTPX.post("https://habitica.com/api/v3/tasks/#{taskId}/score/down",
-                     headers: { "x-api-user" => @habId, "x-api-key" => @habToken })
+                      headers: { "x-api-user" => @habId, "x-api-key" => @habToken })
     if http.status == 200
       puts PP.pp(JSON.parse(http.body))
     else
@@ -107,6 +107,9 @@ class HabActions
     end #if
     if healingNeeded || fullyHealedMembers == false
       healingNeeded = true
+    end #if
+    if healingNeeded
+      msgParty("HP is low, party needs healing 💔")
     end #if
     return healingNeeded
   end #def
