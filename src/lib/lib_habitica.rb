@@ -92,7 +92,7 @@ class HabActions
     return nil
   end #def
 
-  def doesPartyNeedHealing
+  def checkAndHealParty
     party = getPartyMembers
     healingNeeded = false
     fullyHealedMembers = false
@@ -110,6 +110,9 @@ class HabActions
     end #if
     if healingNeeded
       msgParty("HP is low, party needs healing 💔")
+      healParty
+    else
+      msgParty("Party is healthy 💖")
     end #if
     return healingNeeded
   end #def

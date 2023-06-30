@@ -1,6 +1,6 @@
 {
   "name": "shikigami",
-  "version": "1.1.5",
+  "version": "1.1.6",
   "description": "Personal conjured assistant template for fellow onmyōji 🔖",
   "main": "src/core.rb",
   "scripts": {
