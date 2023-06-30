@@ -67,7 +67,7 @@ class HabActions
   end #def
 
   def healParty
-    http = HTTPX.get("https://habitica.com/api/v3/user/class/cast/healAll",
+    http = HTTPX.post("https://habitica.com/api/v3/user/class/cast/healAll",
                      headers: { "x-api-user" => @habId, "x-api-key" => @habToken })
     if http.status == 200
       puts PP.pp(JSON.parse(http.body))
