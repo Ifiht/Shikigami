@@ -68,7 +68,7 @@ class HabActions
 
   def healParty
     http = HTTPX.post("https://habitica.com/api/v3/user/class/cast/healAll",
-                     headers: { "x-api-user" => @habId, "x-api-key" => @habToken })
+                      headers: { "x-api-user" => @habId, "x-api-key" => @habToken })
     if http.status == 200
       puts PP.pp(JSON.parse(http.body))
     else
@@ -110,6 +110,7 @@ class HabActions
     end #if
     if healingNeeded
       msgParty("HP is low, party needs healing 💔")
+      sleep 1 #502 error if requests come too fast...
       healParty
     else
       msgParty("Party is healthy 💖")
