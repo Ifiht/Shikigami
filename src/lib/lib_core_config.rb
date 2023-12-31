@@ -11,3 +11,4 @@ class AppSettings
     return @@config_hash[key]
   end
 end
+# Make here a standard message format for beanstalk
