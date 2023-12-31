@@ -1,6 +1,7 @@
 require "yaml"
+require "app_settings.rb"
 
-class AppSettings
+class BeanTalker
   @@config_hash = YAML.load(File.read("#{Dir.home}/.config/shikigami/config.yml"))
 
   def self.exists?(key)
@@ -11,4 +12,3 @@ class AppSettings
     return @@config_hash[key]
   end
 end
-# Make here a standard message format for beanstalk
