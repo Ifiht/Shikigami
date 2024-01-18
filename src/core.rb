@@ -6,7 +6,7 @@ require "io/console"
 require "concurrent"
 require "require_all"
 #==========<[ Local Libs ]>==========#
-require_rel "lib"
+require_rel "lib/app_settings"
 
 #@@@@@@ USERS MAY EDIT THEIR SETTINGS BELOW:
 #[[[[[[ INITIALIZE CONFIG & ALL LIBRARY CLASSES HERE]]]]]]
@@ -14,9 +14,6 @@ core_config = AppSettings.new
 beanstalk_host = core_config.get("beanstalk_host")
 beanstalk_port = core_config.get("beanstalk_port")
 
-############################################################
-#@@@@@@@@@@ DO NOT EDIT BELOW THIS LINE!!!! @@@@@@@@@@@@@@@#
-############################################################
 #[[[[[[ DEFINE CHECK PORT OPEN ]]]]]]
 def port_open?(ip, port)
   Timeout::timeout(2) do
