@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/bin/env bash
 #/+++++++++++++++++ SHIKIGAMI SETUP v0.0.1 +++++\
 #| This script will install all dependencies    |
 #| required to run Shikigami. It will also      |
