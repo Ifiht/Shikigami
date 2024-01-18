@@ -6,7 +6,7 @@ require "io/console"
 require "concurrent"
 require "require_all"
 #==========<[ Local Libs ]>==========#
-require_rel "lib/*.rb"
+require_rel "lib"
 
 #@@@@@@ USERS MAY EDIT THEIR SETTINGS BELOW:
 #[[[[[[ INITIALIZE CONFIG & ALL LIBRARY CLASSES HERE]]]]]]
