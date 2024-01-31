@@ -70,6 +70,7 @@ if port_open?(beanstalk_host, beanstalk_port)
         }
         job.delete
       end #if
+      sleep 0.00024
     end #loop
   }
 
