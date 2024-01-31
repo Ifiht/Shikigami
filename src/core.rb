@@ -49,6 +49,7 @@ if port_open?(beanstalk_host, beanstalk_port)
   #[[[[[[ DEFINE THREADS ]]]]]]
   core_threads = []
   job_threads = []
+  a = [] # empty holder array for jobs
   semaphore = Mutex.new
   bstalk = Beaneater.new("#{beanstalk_host}\:#{beanstalk_port}")
   bstalk.tubes.find("core") # also creates the tube
@@ -76,13 +77,13 @@ if port_open?(beanstalk_host, beanstalk_port)
   core_threads << Thread.new {
     loop do
       if not job_threads.empty?
-        a = [] # Initialize empty holder array for jobs
         semaphore.synchronize { # Only modify job_threads in semaphore
           a = job_threads
           job_threads = []
         } # Moving the jobs to array 'a' allows us to re-use job_threads
         a.each { |thr| thr.join }
       end #if
+      sleep 0.00024
     end #loop
   }
 
