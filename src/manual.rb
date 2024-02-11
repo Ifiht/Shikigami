@@ -9,6 +9,7 @@
 #| mainly with ad-hoc tasks, or schedulers like cron.            ||
 #\===============================================================//
 require "beaneater"
+require_relative "lib/shiki_gram"
 require_relative "lib/app_settings"
 
 # Get user settings
@@ -18,6 +19,9 @@ beanstalk_port = core_config.get("beanstalk_port")
 
 # Connect to beanstalkd
 beanstalk = Beaneater.new("#{beanstalk_host}\:#{beanstalk_port}")
-tube = beanstalk.tubes["shikigami"]
-tube.put ARGV[0]
+tube = beanstalk.tubes["core"]
+arg = ARGV[0]
+skg = ShikiGram.new
+msg = skg.wrap_msg(arg)
+tube.put msg
 beanstalk.close
