@@ -1,4 +1,5 @@
 require "yaml"
+require 'base64'
 
 class ShikiGram
   def wrap_msg(msg)
