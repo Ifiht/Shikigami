@@ -11,6 +11,7 @@ require_rel "lib/app_settings"
 
 #@@@@@@ USERS MAY EDIT THEIR SETTINGS BELOW:
 #[[[[[[ INITIALIZE CONFIG & ALL LIBRARY CLASSES HERE]]]]]]
+sgram = ShikiGram.new
 core_config = AppSettings.new
 beanstalk_host = core_config.get("beanstalk_host")
 beanstalk_port = core_config.get("beanstalk_port")
@@ -61,7 +62,7 @@ if port_open?(beanstalk_host, beanstalk_port)
     loop do
       job = bstalk.tubes.reserve
       if job.exists?
-        str = job.body
+        str = sgram.open_msg(job.body)
         log_to_pm2("Received job: #{str}")
         semaphore.synchronize { # Only modify job_threads in semaphore
           job_threads << Thread.new {
