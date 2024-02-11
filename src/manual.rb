@@ -1,7 +1,7 @@
 #!/usr/bin/env ruby
 #/===============================================================\\
 #|              Manual Event - Example Script                    ||
-#| Usage: ./evt_manual.rb "puts 'Hello, PM2'"                    ||
+#| Usage: ./evt_manual.rb "tube_name" "puts 'Hello, PM2'"        ||
 #| This script takes one argument, which should be a valid line  ||
 #| of Ruby code. that code is then passed on to core.rb via      ||
 #| beanstalkd, and evaluated. Running the example above will     ||
@@ -19,8 +19,10 @@ beanstalk_port = core_config.get("beanstalk_port")
 
 # Connect to beanstalkd
 beanstalk = Beaneater.new("#{beanstalk_host}\:#{beanstalk_port}")
-tube = beanstalk.tubes["core"]
-arg = ARGV[0]
+args = ARGV
+if args.length != 2
+tube = beanstalk.tubes[ARGV[0]]
+arg = ARGV[1]
 skg = ShikiGram.new
 msg = skg.wrap_msg(arg)
 tube.put msg
