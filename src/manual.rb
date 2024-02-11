@@ -12,7 +12,10 @@ require "beaneater"
 require_relative "lib/shiki_gram"
 require_relative "lib/app_settings"
 
-# Get user settings
+# Variable setup
+args = ARGV
+tube = ARGV[0]
+alltubes = []
 skgram = ShikiGram.new
 core_config = AppSettings.new
 beanstalk_host = core_config.get("beanstalk_host")
@@ -20,13 +23,11 @@ beanstalk_port = core_config.get("beanstalk_port")
 
 # Connect to beanstalkd
 beanstalk = Beaneater.new("#{beanstalk_host}\:#{beanstalk_port}")
-args = ARGV
-tube = ARGV[0]
-alltubes = []
 beanstalk.tubes.all.each do |t|
   alltubes << t.name
 end
-puts alltubes.inspect
+
+# Check user input
 if args.length != 2
   puts "this script requires two arguments."
 elsif not alltubes.include? tube
@@ -37,4 +38,6 @@ else
   msg = skgram.wrap_msg(arg)
   bean.put msg
 end
+
+# Close the connection to beanstalkd
 beanstalk.close
