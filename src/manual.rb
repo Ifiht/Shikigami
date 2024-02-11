@@ -22,7 +22,10 @@ beanstalk_port = core_config.get("beanstalk_port")
 beanstalk = Beaneater.new("#{beanstalk_host}\:#{beanstalk_port}")
 args = ARGV
 tube = ARGV[0]
-alltubes = beanstalk.tubes.all
+alltubes = []
+beanstalk.tubes.all.each do |t|
+  alltubes << t.name
+end
 puts alltubes.inspect
 if args.length != 2
   puts "this script requires two arguments."
