@@ -1,6 +1,6 @@
 require "json"
 require "io/console"
-require "app_settings"
+require_relative 'app_settings'
 
 class Pm2Helper
   core_config = AppSettings.new
