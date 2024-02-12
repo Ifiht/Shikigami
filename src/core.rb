@@ -85,14 +85,14 @@ if port_open?(beanstalk_host, beanstalk_port)
   # Core thread to check for new modules
   core_threads << Thread.new {
     loop do
-      modules2 = %x(ls modules).split
+      modules2 = %x[ ls #{cwd}/modules ].split
       if modules1 != modules2
         modules1 = modules2
         modules1.each do |m|
           if pm2.processes.include? m
             log_to_pm2("Skipping running module: #{m}")
           else
-            if %x[ ls modules/#{m} ].split.include? "wrapper.sh"
+            if %x[ ls #{cwd}/modules/#{m} ].split.include? "wrapper.sh"
               %x[ pm2 start #{cwd}/modules/#{m}/wrapper.sh --name #{m} --watch ]
               log_to_pm2("Starting module: #{m}")
             else
