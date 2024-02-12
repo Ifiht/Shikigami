@@ -44,11 +44,8 @@ core_threads << Thread.new {
         eval_string(str)
       rescue Exception => e
         log_to_pm2("Rescued job: #{e}")
-        job.delete
       end
-      if job.exists?
-        job.delete
-      end
+      job.delete
     end #if
     sleep 0.00024
   end #loop
