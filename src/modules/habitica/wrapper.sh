@@ -1,4 +1,4 @@
 #!/bin/env bash
 
-echo "Starting habitica.."
+echo "Starting habitica..."
 ruby habitica.rb

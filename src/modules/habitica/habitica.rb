@@ -24,6 +24,16 @@ def log_to_pm2(message)
   $stdout.flush
 end
 
+def eval_string(str)
+  begin
+    eval str
+  rescue SyntaxError
+    log_to_pm2("SyntaxError: #{str}")
+  rescue NameError
+    log_to_pm2("NameError: #{str}")
+  end #begin
+end #def
+
 core_threads << Thread.new {
   loop do
     job = bstalk.tubes.reserve
@@ -32,7 +42,7 @@ core_threads << Thread.new {
       log_to_pm2("Received job: #{str}")
       begin
         eval_string(str)
-      rescue e
+      rescue Exception => e
         log_to_pm2("Rescued job: #{e}")
         job.delete
       end
