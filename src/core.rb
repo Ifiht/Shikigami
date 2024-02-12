@@ -93,7 +93,7 @@ if port_open?(beanstalk_host, beanstalk_port)
             log_to_pm2("Skipping running module: #{m}")
           else
             if %x[ ls #{cwd}/src/modules/#{m} ].split.include? "wrapper.sh"
-              %x[ pm2 start #{cwd}/src/modules/#{m}/wrapper.sh --name #{m} --watch ]
+              %x[ cd #{cwd}/src/modules/#{m} && pm2 start #{cwd}/src/modules/#{m}/wrapper.sh --name #{m} --watch ]
               log_to_pm2("Starting module: #{m}")
             else
               log_to_pm2("No wrapper for module: #{m}")

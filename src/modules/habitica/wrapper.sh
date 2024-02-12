@@ -1,3 +1,3 @@
 #!/bin/env bash
 
-ruby ./habitica.rb
+ruby habitica.rb
