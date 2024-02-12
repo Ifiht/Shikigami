@@ -98,7 +98,7 @@ class HabActions
     fullyHealedMembers = false
     if party.nil? == false
       party.each do |member|
-        if member["stats"]["hp"].round < (member["stats"]["maxHealth"] / 2)
+        if member["stats"]["hp"].round < (member["stats"]["maxHealth"])
           healingNeeded = true
         elsif member["stats"]["hp"].round == member["stats"]["maxHealth"]
           fullyHealedMembers = true
