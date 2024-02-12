@@ -7,11 +7,14 @@ require "concurrent"
 require "require_all"
 #==========<[ Local Libs ]>==========#
 require_rel "lib/shiki_gram"
+require_rel "lib/pm2_helper"
 require_rel "lib/app_settings"
 
 #@@@@@@ USERS MAY EDIT THEIR SETTINGS BELOW:
 #[[[[[[ INITIALIZE CONFIG & ALL LIBRARY CLASSES HERE]]]]]]
 cwd = %x(pwd).chomp
+pm2 = Pm2Helper.new
+procs = []
 sgram = ShikiGram.new
 modules1 = []
 modules2 = []
@@ -86,9 +89,16 @@ if port_open?(beanstalk_host, beanstalk_port)
       if modules1 != modules2
         modules1 = modules2
         modules1.each do |m|
-          if %x[ ls modules/#{m} ].split.include? "wrapper.sh"
-            %x[ pm2 start #{cwd}/modules/#{m}/wrapper.sh --name #{m} --watch ]
-          end
+          if pm2.processes.include? m
+            log_to_pm2("Skipping running module: #{m}")
+          else
+            if %x[ ls modules/#{m} ].split.include? "wrapper.sh"
+              %x[ pm2 start #{cwd}/modules/#{m}/wrapper.sh --name #{m} --watch ]
+              log_to_pm2("Starting module: #{m}")
+            else
+              log_to_pm2("No wrapper for module: #{m}")
+            end #if
+          end #if
         end #do
       end #if
       sleep 2
