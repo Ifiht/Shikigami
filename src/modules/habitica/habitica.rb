@@ -7,11 +7,13 @@ require_rel "../../lib/app_settings"
 require_relative "lib_habitica"
 
 sgram = ShikiGram.new
-@habit = HabActions.new
 core_config = AppSettings.new
+habitica_usrid = core_config.get("api_habitica_usrid")
+habitica_token = core_config.get("api_habitica_token")
 beanstalk_host = core_config.get("beanstalk_host")
 beanstalk_port = core_config.get("beanstalk_port")
 core_threads = []
+@habitica = HabActions.new(habitica_usrid, habitica_token)
 
 bstalk = Beaneater.new("#{beanstalk_host}\:#{beanstalk_port}")
 bstalk.tubes.find("habitica") # also creates the tube

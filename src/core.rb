@@ -11,7 +11,10 @@ require_rel "lib/app_settings"
 
 #@@@@@@ USERS MAY EDIT THEIR SETTINGS BELOW:
 #[[[[[[ INITIALIZE CONFIG & ALL LIBRARY CLASSES HERE]]]]]]
+cwd = %x(pwd).chomp
 sgram = ShikiGram.new
+modules1 = []
+modules2 = []
 core_config = AppSettings.new
 beanstalk_host = core_config.get("beanstalk_host")
 beanstalk_port = core_config.get("beanstalk_port")
@@ -73,6 +76,22 @@ if port_open?(beanstalk_host, beanstalk_port)
         job.delete
       end #if
       sleep 0.00024
+    end #loop
+  }
+
+  # Core thread to check for new modules
+  core_threads << Thread.new {
+    loop do
+      modules2 = %x(ls modules).split
+      if modules1 != modules2
+        modules1 = modules2
+        modules1.each do |m|
+          if %x[ ls modules/#{m} ].split.include? "wrapper.sh"
+            %x[ pm2 start #{cwd}/modules/#{m}/wrapper.sh --name #{m} --watch ]
+          end
+        end #do
+      end #if
+      sleep 2
     end #loop
   }
 
