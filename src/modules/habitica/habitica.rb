@@ -1,4 +1,5 @@
 #=============<[ Gems ]>=============#
+require "beaneater"
 require "require_all"
 #==========<[ Local Libs ]>==========#
 require_rel "../../lib/shiki_gram"
