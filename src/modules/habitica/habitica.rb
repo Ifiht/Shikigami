@@ -11,7 +11,7 @@ sgram = ShikiGram.new
 core_config = AppSettings.new
 beanstalk_host = core_config.get("beanstalk_host")
 beanstalk_port = core_config.get("beanstalk_port")
-
+core_threads = []
 
 bstalk = Beaneater.new("#{beanstalk_host}\:#{beanstalk_port}")
 bstalk.tubes.find("habitica") # also creates the tube
@@ -22,17 +22,34 @@ def log_to_pm2(message)
   $stdout.flush
 end
 
-loop do
-  job = bstalk.tubes.reserve
-  if job.exists?
-    str = sgram.open_msg(job.body)
-    log_to_pm2("Received job: #{str}")
-    begin
-      eval_string(str)
-    rescue e
-      log_to_pm2("Rescued job: #{e}")
-    end
-    job.delete
-  end #if
-  sleep 0.00024
-end #loop
+core_threads << Thread.new {
+  loop do
+    job = bstalk.tubes.reserve
+    if job.exists?
+      str = sgram.open_msg(job.body)
+      log_to_pm2("Received job: #{str}")
+      begin
+        eval_string(str)
+      rescue e
+        log_to_pm2("Rescued job: #{e}")
+      end
+      job.delete
+    end #if
+    sleep 0.00024
+  end #loop
+}
+
+#[[[[[[ CATCH INTERRUPT ]]]]]]
+Signal.trap("INT") {
+  i = 0
+  core_threads.each { |t|
+    log_to_pm2 "killing core thread #{i}.."
+    t.kill
+    i += 1
+  }
+  log_to_pm2 "Exiting gracefully."
+  exit
+}
+
+#[[[[[[ JOIN THREADS ]]]]]]
+core_threads.each { |thr| thr.join }
