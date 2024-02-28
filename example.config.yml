@@ -1,7 +1,8 @@
 ---
-shiki_name: kuzunoha
+shiki_name: chamber
 beanstalk_host: 127.0.0.2
 beanstalk_port: 9999
-api_telegram_token: FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+api_discord_token: FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+api_telegram_token: FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
 api_habitica_usrid: fffffffff-ffffffff-fffffffff-fffffff
 api_habitica_token: fffffffff-ffffffff-fffffffff-fffffff
