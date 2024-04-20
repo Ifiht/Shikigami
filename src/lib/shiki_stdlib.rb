@@ -2,8 +2,8 @@ require "beaneater"     # MPI Library
 require "require_all"
 #==========<[ Local Libs ]>==========#
 require_rel "./shiki_gram"    # Send messages between modules
-require_rel "./app_settings"  # Retrieve application settings
 require_rel "./pm2_helper"    # Functions for PM2 interaction
+require_rel "./app_settings"  # Retrieve application settings
 
 class Shiki
   def initialize(module_name)
