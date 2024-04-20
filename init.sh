@@ -51,11 +51,13 @@ if ! [ -f ./ecosystem.config.js ]; then
 fi
 
 #===========================<[ INSTALL DEPENDENCIES...
+echo "Installing deps..."
 bash -c "source $HOME/.nvm/nvm.sh && npm install pm2 -g"
 bash -c "source $HOME/.rvm/scripts/rvm && rvm gemset create shikigami"
 bash -c "source $HOME/.rvm/environments/ruby-3.1.4@shikigami && gem install bundler"
 bash -c "source $HOME/.rvm/environments/ruby-3.1.4@shikigami && bundle"
 #===========================<[ PERSIST ENVIRONMENT...
+echo "Setup rvm environment..."
 bash -c "source $HOME/.rvm/environments/ruby-3.1.4@shikigami && rvm cron setup"
 bash -c "source $HOME/.rvm/environments/ruby-3.1.4@shikigami && rvm --default use ruby-3.1.4@shikigami"
 
