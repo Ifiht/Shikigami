@@ -54,6 +54,9 @@ core_threads << Thread.new {
   bot.message(starting_with: "@wayland#9237") do |event|
     event.respond "What's up?"
   end
+  bot.message() do |event|
+    puts event.inspect
+  end
   at_exit { bot.stop }
   bot.run
 }
