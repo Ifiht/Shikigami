@@ -16,7 +16,7 @@ class ShikiGram
 end
 
 #3.1.4 :021 > job = @beanstalk.tubes.reserve
- => #<Beaneater::Job id=297 body="Hello world">
+# => #<Beaneater::Job id=297 body="Hello world">
 #3.1.4 :022 > job.stats
- => #<Beaneater::StatStruct id=297, tube="test", state="reserved", pri=65536, age=140, delay=0,\
- # ttr=120, time_left=115, file=0, reserves=1, timeouts=0, releases=0, buries=0, kicks=0>
+# => #<Beaneater::StatStruct id=297, tube="test", state="reserved", pri=65536, age=140, delay=0,\
+# ttr=120, time_left=115, file=0, reserves=1, timeouts=0, releases=0, buries=0, kicks=0>
