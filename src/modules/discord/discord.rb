@@ -1,4 +1,6 @@
 #=============<[ Gems ]>=============#
+require "http"
+require "json"
 require "discordrb"
 require "beaneater"
 require "require_all"
