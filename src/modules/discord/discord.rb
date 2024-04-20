@@ -2,10 +2,11 @@
 require "discordrb"
 require "require_all"
 #==========<[ Local Libs ]>==========#
-require_rel "../../lib/shiki_gram"
-require_rel "../../lib/app_settings"
+#require_rel "../../lib/shiki_gram"
+#require_rel "../../lib/app_settings"
+require_rel "../../lib/shiki_stdlib"
 
-core_config = AppSettings.new
+shiki = Shiki.new("discord")
 beanstalk_host = core_config.get("beanstalk_host")
 beanstalk_port = core_config.get("beanstalk_port")
 discord_token = core_config.get("api_discord_token")
@@ -18,4 +19,4 @@ bot.message(with_text: "Ping!") do |event|
 end
 
 at_exit { bot.stop }
-bot.run
+shiki.run(bot.run)
