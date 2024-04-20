@@ -86,8 +86,8 @@ core_threads << Thread.new {
 core_threads << Thread.new {
   bot = Discordrb::Bot.new token: discord_token
   bot.message(starting_with: "<@1211423563475849236>") do |event|
-    log_to_pm2("Received msg: #{event.inspect}")
-    a = ask_question(str)
+    log_to_pm2("Received msg: #{event.message.content}")
+    a = ask_question(event.message.content)
     event.respond a
   end
   bot.message() do |event|
