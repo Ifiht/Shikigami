@@ -56,7 +56,6 @@ core_threads << Thread.new {
   end
   bot.message() do |event|
     puts event.inspect
-    puts @message.content
   end
   at_exit { bot.stop }
   bot.run
