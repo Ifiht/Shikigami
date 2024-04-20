@@ -8,7 +8,7 @@ require_rel "../../lib/shiki_stdlib"
 
 shiki = Shiki.new("discord")
 core_config = AppSettings.new
-@discord_token = core_config.get("api_discord_token")
+discord_token = core_config.get("api_discord_token")
 beanstalk_host = core_config.get("beanstalk_host")
 beanstalk_port = core_config.get("beanstalk_port")
 core_threads = []
@@ -50,8 +50,8 @@ core_threads << Thread.new {
 }
 # join url: https://discordapp.com/oauth2/authorize?&client_id=CLIENT_ID&scope=bot&permissions=274878155840
 core_threads << Thread.new {
-  bot = Discordrb::Bot.new token: @discord_token
-  bot.message(with_text: "Ping!") do |event|
+  bot = Discordrb::Bot.new token: discord_token
+  bot.message(starting_with: "Ping!") do |event|
     event.respond "Pong!"
   end
   at_exit { bot.stop }
