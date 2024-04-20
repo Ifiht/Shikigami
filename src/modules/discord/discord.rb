@@ -61,8 +61,8 @@ def format_question(prompt)
   return request.to_json
 end #def
 
-def ask_question(str)
-  question = format_question(str)
+def ask_question(q)
+  question = format_question(q)
   response = HTTP.post("http://localhost:4242/completion", :json => question)
   h = JSON.parse(response.body)
   return h["content"]
@@ -90,10 +90,8 @@ core_threads << Thread.new {
   bot.message(starting_with: "<@1211423563475849236>") do |event|
     log_to_pm2("Received msg: #{event.message.content}")
     a = ask_question(event.message.content)
+    log_to_pm2("Sending msg: #{a}")
     event.respond a
-  end
-  bot.message() do |event|
-    puts event.inspect
   end
   at_exit { bot.stop }
   bot.run
