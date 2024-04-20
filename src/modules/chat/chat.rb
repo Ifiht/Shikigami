@@ -8,10 +8,6 @@ require "require_all"
 require_rel "../../lib/app_settings"
 require_rel "../../lib/shiki_stdlib"
 
-response = HTTP.post("http://localhost:4242/completion", :json => req_json)
-my_hash = JSON.parse(response.body)
-puts my_hash["content"]
-
 shiki = Shiki.new("chat")
 core_config = AppSettings.new
 beanstalk_host = core_config.get("beanstalk_host")
@@ -55,7 +51,9 @@ end #def
 
 def ask_question(str)
   question = format_question(str)
-
+  response = HTTP.post("http://localhost:4242/completion", :json => question)
+  h = JSON.parse(response.body)
+  return h["content"]
 end #def
 
 core_threads << Thread.new {
@@ -65,7 +63,7 @@ core_threads << Thread.new {
       str = sgram.open_msg(job.body)
       log_to_pm2("Received job: #{str}")
       begin
-        ask_question(str)
+        a = ask_question(str)
       rescue Exception => e
         log_to_pm2("Rescued job: #{e}")
       end
