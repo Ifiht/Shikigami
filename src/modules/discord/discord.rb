@@ -18,8 +18,6 @@ bstalk = Beaneater.new("#{beanstalk_host}\:#{beanstalk_port}")
 bstalk.tubes.find("discord") # also creates the tube
 bstalk.tubes.watch!("discord")
 
-@bot = Discordrb::Bot.new token: discord_token
-
 def log_to_pm2(message)
   $stdout.puts message
   $stdout.flush
@@ -86,16 +84,17 @@ core_threads << Thread.new {
 }
 # join url: https://discordapp.com/oauth2/authorize?&client_id=CLIENT_ID&scope=bot&permissions=274878155840
 core_threads << Thread.new {
-  @bot.message(starting_with: "<@1211423563475849236>") do |event|
+  bot = Discordrb::Bot.new token: discord_token
+  bot.message(starting_with: "<@1211423563475849236>") do |event|
     log_to_pm2("Received msg: #{event.inspect}")
     a = ask_question(str)
     event.respond a
   end
-  @bot.message() do |event|
+  bot.message() do |event|
     puts event.inspect
   end
-  at_exit { @bot.stop }
-  @bot.run
+  at_exit { bot.stop }
+  bot.run
 }
 
 #[[[[[[ CATCH INTERRUPT ]]]]]]
