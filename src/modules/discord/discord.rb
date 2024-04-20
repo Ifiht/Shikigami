@@ -87,6 +87,7 @@ core_threads << Thread.new {
 # join url: https://discordapp.com/oauth2/authorize?&client_id=CLIENT_ID&scope=bot&permissions=274878155840
 core_threads << Thread.new {
   @bot.message(starting_with: "<@1211423563475849236>") do |event|
+    log_to_pm2("Received msg: #{event.inspect}")
     a = ask_question(str)
     event.respond a
   end
