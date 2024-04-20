@@ -51,7 +51,7 @@ core_threads << Thread.new {
 # join url: https://discordapp.com/oauth2/authorize?&client_id=CLIENT_ID&scope=bot&permissions=274878155840
 core_threads << Thread.new {
   bot = Discordrb::Bot.new token: discord_token
-  bot.message(starting_with: "@wayland") do |event|
+  bot.message(starting_with: "@wayland#9237") do |event|
     event.respond "What's up?"
   end
   at_exit { bot.stop }
