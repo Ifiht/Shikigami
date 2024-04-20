@@ -18,6 +18,8 @@ bstalk = Beaneater.new("#{beanstalk_host}\:#{beanstalk_port}")
 bstalk.tubes.find("discord") # also creates the tube
 bstalk.tubes.watch!("discord")
 
+@bot = Discordrb::Bot.new token: discord_token
+
 def log_to_pm2(message)
   $stdout.puts message
   $stdout.flush
@@ -31,6 +33,39 @@ def eval_string(str)
   rescue NameError
     log_to_pm2("NameError: #{str}")
   end #begin
+end #def
+
+def format_question(prompt)
+  request = {
+    "stream"=> false,
+    "n_predict"=> 400,
+    "temperature"=> 0,
+    "stop"=> [
+        "</s>",
+    ],
+    "repeat_last_n"=> 256,
+    "repeat_penalty"=> 1,
+    "top_k"=> 20,
+    "top_p"=> 0.75,
+    "tfs_z"=> 1,
+    "typical_p"=> 1,
+    "presence_penalty"=> 0,
+    "frequency_penalty"=> 0,
+    "mirostat"=> 0,
+    "mirostat_tau"=> 5,
+    "mirostat_eta"=> 0.1,
+    "grammar"=> "",
+    "n_probs"=> 0,
+    "prompt"=> prompt
+  }
+  return request.to_json
+end #def
+
+def ask_question(str)
+  question = format_question(str)
+  response = HTTP.post("http://localhost:4242/completion", :json => question)
+  h = JSON.parse(response.body)
+  return h["content"]
 end #def
 
 core_threads << Thread.new {
@@ -51,15 +86,15 @@ core_threads << Thread.new {
 }
 # join url: https://discordapp.com/oauth2/authorize?&client_id=CLIENT_ID&scope=bot&permissions=274878155840
 core_threads << Thread.new {
-  bot = Discordrb::Bot.new token: discord_token
-  bot.message(starting_with: "<@1211423563475849236>") do |event|
-    event.respond "What's up?"
+  @bot.message(starting_with: "<@1211423563475849236>") do |event|
+    a = ask_question(str)
+    event.respond a
   end
-  bot.message() do |event|
+  @bot.message() do |event|
     puts event.inspect
   end
-  at_exit { bot.stop }
-  bot.run
+  at_exit { @bot.stop }
+  @bot.run
 }
 
 #[[[[[[ CATCH INTERRUPT ]]]]]]

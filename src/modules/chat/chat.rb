@@ -8,7 +8,7 @@ require "require_all"
 require_rel "../../lib/app_settings"
 require_rel "../../lib/shiki_stdlib"
 
-shiki = Shiki.new("chat")
+sgram = ShikiGram.new
 core_config = AppSettings.new
 beanstalk_host = core_config.get("beanstalk_host")
 beanstalk_port = core_config.get("beanstalk_port")
@@ -64,6 +64,9 @@ core_threads << Thread.new {
       log_to_pm2("Received job: #{str}")
       begin
         a = ask_question(str)
+        response = sgram.wrap_msg(a)
+        beansource = bstalk.tubes["discord"]
+        beansource.put response
       rescue Exception => e
         log_to_pm2("Rescued job: #{e}")
       end
