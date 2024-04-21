@@ -58,7 +58,7 @@ def format_question(prompt)
     "n_probs"=> 0,
     "prompt"=> prompt
   }
-  return request.to_json
+  return request
 end #def
 
 def ask_question(q)
