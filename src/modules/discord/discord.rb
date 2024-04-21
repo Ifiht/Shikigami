@@ -20,7 +20,8 @@ bstalk = Beaneater.new("#{beanstalk_host}\:#{beanstalk_port}")
 bstalk.tubes.find("discord") # also creates the tube
 bstalk.tubes.watch!("discord")
 
-CHAT = "@User: Hello, Wayland.\n@Wayland: Hi.\n@User: Please translate this into binary 'To be or not to be'.\n@Wayland: 010101000110111100100000011000100110010100100000011011110111001000100000011011100110111101110100001000000111010001101111001000000110001001100101"
+INST = "A chat between a curious human and an artificial intelligence assistant. The assistant gives honest, detailed, and quick answers to the human's questions."
+CHAT = "\n@User: Hello, Wayland.\n@Wayland: Hi.\n@User: What is the closest star to our sun?\n@Wayland: The closest star to our sun Sol is Alpha Centauri."
 
 def log_to_pm2(message)
   $stdout.puts message
@@ -90,7 +91,7 @@ core_threads << Thread.new {
   bot.message(starting_with: "<@1211423563475849236>") do |event|
     msg_body = event.message.content.gsub("<@1211423563475849236>", "").to_s
     log_to_pm2("Received msg: #{msg_body}")
-    a = ask_question(CHAT + "\n@User: " + msg_body + "\n@Wayland:")
+    a = ask_question(INST + CHAT + "\n@User: " + msg_body + "\n@Wayland:")
     log_to_pm2("Sending msg: #{a}")
     if a.include? "@Wayland:"
       event.respond a.gsub("@Wayland:", "").to_s
