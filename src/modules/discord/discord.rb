@@ -40,9 +40,7 @@ def format_question(prompt)
     "stream"=> false,
     "n_predict"=> 400,
     "temperature"=> 0,
-    "stop"=> [
-        "</s>",
-    ],
+    "stop"=> ["\n@User:"],
     "repeat_last_n"=> 256,
     "repeat_penalty"=> 1,
     "top_k"=> 20,
@@ -90,7 +88,7 @@ core_threads << Thread.new {
   bot.message(starting_with: "<@1211423563475849236>") do |event|
     msg_body = event.message.content.gsub("<@1211423563475849236>", "").to_s
     log_to_pm2("Received msg: #{msg_body}")
-    a = ask_question("@User:" + msg_body)
+    a = ask_question("@User: " + msg_body)
     log_to_pm2("Sending msg: #{a}")
     event.respond a.gsub("@Wayland:")
   end
