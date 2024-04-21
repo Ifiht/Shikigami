@@ -35,15 +35,15 @@ my_hash = JSON.parse(response.body)
 puts my_hash["content"]
 
 
-shiki = Shiki.new("llama")
+shiki = Shiki.new("chat")
 core_config = AppSettings.new
 beanstalk_host = core_config.get("beanstalk_host")
 beanstalk_port = core_config.get("beanstalk_port")
 core_threads = []
 
 bstalk = Beaneater.new("#{beanstalk_host}\:#{beanstalk_port}")
-bstalk.tubes.find("llama") # also creates the tube
-bstalk.tubes.watch!("llama")
+bstalk.tubes.find("chat") # also creates the tube
+bstalk.tubes.watch!("chat")
 
 def log_to_pm2(message)
   $stdout.puts message
@@ -77,10 +77,12 @@ core_threads << Thread.new {
   end #loop
 }
 
-core_threads << Thread.new {
-  %x[ ./server -t 12 --threads-http 1 -c 512 --model models/Llama-2-13b-chat-hf/ggml-model-Q4_K_M.gguf --host 127.0.0.1 --port 4242 ]
-}
-
+#{"tid":"140625866508096","timestamp":1713587850,"level":"INFO","function":"init","line":708,"msg":"initializing slots","n_slots":1}
+#{"tid":"140625866508096","timestamp":1713587850,"level":"INFO","function":"init","line":717,"msg":"new slot","id_slot":0,"n_ctx_slot":512}
+#{"tid":"140625866508096","timestamp":1713587850,"level":"INFO","function":"main","line":3009,"msg":"model loaded"}
+#{"tid":"140625866508096","timestamp":1713587850,"level":"INFO","function":"main","line":3031,"msg":"chat template","chat_example":"[INST] <<SYS>>\nYou are a helpful assistant\n<</SYS>>\n\nHello [/INST] Hi there </s><s>[INST] How are you? [/INST]","built_in":true}
+#{"tid":"140625866508096","timestamp":1713587850,"level":"INFO","function":"main","line":3762,"msg":"HTTP server listening","n_threads_http":"1","port":"4242","hostname":"127.0.0.1"}
+#{"tid":"140625866508096","timestamp":1713587850,"level":"INFO","function":"update_slots","line":1782,"msg":"all slots are idle"}
 #[[[[[[ CATCH INTERRUPT ]]]]]]
 Signal.trap("INT") {
   i = 0
