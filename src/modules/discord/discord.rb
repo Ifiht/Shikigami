@@ -85,12 +85,13 @@ core_threads << Thread.new {
     sleep 0.00024
   end #loop
 }
-# join url: https://discordapp.com/oauth2/authorize?&client_id=CLIENT_ID&scope=bot&permissions=274878155840
+# join url: https://discordapp.com/oauth2/authorize?&client_id=1211423563475849236&scope=bot&permissions=274878155840
 core_threads << Thread.new {
   bot = Discordrb::Bot.new token: discord_token
   bot.message(starting_with: "<@1211423563475849236>") do |event|
     msg_body = event.message.content.gsub("<@1211423563475849236>", "").to_s
     log_to_pm2("Received msg: #{msg_body}")
+    bot.start_typing
     a = ask_question(INST + CHAT + "\n@User: " + msg_body + "\n@Wayland:")
     log_to_pm2("Sending msg: #{a}")
     if a.include? "@Wayland:"
