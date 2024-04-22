@@ -16,34 +16,52 @@ This is currently the system I use to automate my life, sharing here in case any
 
 ## Architecture:
 ```
-        eval()     ┌─────────┐
-    ┌──────────────┤ core.rb │
-    │              └─────────┘                    ┌─────┐
-    │                ▲     ▲   ruby code as text  │     │
-    │          ┌─────┘     └──────────────────────┤     │
-    │          │                                  │     │
-    │       ┌──┴──┐           ┌───────┐           │  b  │
-    │       │     ├──────►┌──►│evt_one├──────────►│  e  │
-    │       │  l  │       │   └───────┘           │  a  │
-    │       │  i  │       │                       │  n  │
-    │       │  b  │       │                       │  s  │
-    │       │  r  │       │   ┌───────┐           │  t  │
-    │       │  a  ├──────►├──►│evt_two├──────────►│  a  │
-    │       │  r  │       │   └───────┘           │  l  │
-    │       │  y  │       │                       │  k  │
-    │       │  /  │       │                       │  d  │
-    │       │  *  │       │   ┌───────┐           │     │
-    │       │     ├──────►├──►│evt_N  ├──────────►│     │
-    │       └─────┘       │   └───────┘           │     │
-    │                     │                       └─────┘
-    ▼                     │
- ┌────────────────────────┴─────────────────────────────┐
- │                                                      │
- │                    External                          │
- │                                                      │
- │                    Environment                       │
- │                                                      │
- └──────────────────────────────────────────────────────┘
+                                            
+ ┌────────────────────────────────────────┐ 
+ │               PM2 Daemon               │ 
+ └─────┬───────────────────────────┬──────┘ 
+       │                           │        
+       ▼                           ▼        
+  ┌─────────┐                   ┌─────┐     
+  │ core.rb ├───────────────────┤     │     
+  └────┬────┘                   │     │     
+       │                        │     │     
+       ▼                        │     │     
+     ┌───┐                      │  B  │     
+     │   │     ┌───────────┐    │  e  │     
+     │   ├────►│ module 00 ├────┤  a  │     
+     │   │     └───────────┘    │  n  │     
+     │ M │                      │  s  │     
+     │ o │     ┌───────────┐    │  t  │     
+     │ d ├────►│ module 01 ├────┤  a  │     
+     │ u │     └───────────┘    │  l  │     
+     │ l │                      │  k  │     
+     │ e │     ┌───────────┐    │  d  │     
+     │ s ├────►│ module 02 ├────┤     │     
+     │   │     └───────────┘    │     │     
+     │   │                      │     │     
+     │   │     ┌───────────┐    │     │     
+     │   ├────►│ module NN ├────┤     │     
+     └───┘     └───────────┘    └─────┘     
+                                            
 ```
-_Events from external resources (chat clients, databases, filesystems) are queued into `beanstalkd` as raw lines of ruby code. For each message in the queue, `core.rb` spawns a new thread and executes `eval()` on the message body. All code beyond the single line for execution should be written into a single file, consisting of a single class, in the library directory, and will automatically be included in `core.rb` at runtime. Classes must be initialized in `core.rb` for use, as well as any sensitive tokens or ids from config.yml._  
-_When run, core.rb is started by PM2 followed by event listener ruby file. Libraries never get run by PM2._
+_Events from external resources (chat clients, databases, filesystems) are processed by the appropriate module, or queued into `beanstalkd` as raw lines of ruby code. Each module is responsible for routing its events, which can be sent to another module or `core.rb`, which will spawn a new thread and executes `eval()` on the message body.
+Every directory under `modules` with a valid `wrapper.sh` file will automatically be detected by `core.rb` and sent to PM2 for startup and persistence._
+
+## Resources:
+- [llama.cpp](https://github.com/ggerganov/llama.cpp/tree/master)
+- [Llama Family](https://huggingface.co/meta-llama)
+- [Discordrb](https://github.com/shardlab/discordrb/tree/main)
+
+## Training Data:
+The Large Language Model (LLM) used in this project is currently Llama 2, which is trained on the following:
+- 67.0% CommonCrawl
+- 15.0% C4
+- 4.5% GitHub
+- 4.5% Wikipedia
+- 4.5% Books
+- 2.5% ArXiv
+- 2.0% StackExchange
+
+
+*** VERY MUCH A WORK IN PROGRESS ***
