@@ -8,7 +8,7 @@ watch_maildir_thread = Thread.start do
       update_string = %x(cat $HOME/Maildir/new/`ls $HOME/Maildir/new|head -1`)
       puts "New mail(#{Time.now}): #{update_file}"
       %x(mv $HOME/Maildir/new/`ls $HOME/Maildir/new|head -1` $HOME/Maildir/cur/`ls $HOME/Maildir/new|head -1`)
-    end#if
+    end #if
     sleep 5
-  end#loop
-end#thread
+  end #loop
+end #thread

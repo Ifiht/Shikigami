@@ -15,7 +15,7 @@ class Shiki
   config = AppSettings.new
   beanstalk_host = config.get("beanstalk_host")
   beanstalk_port = config.get("beanstalk_port")
-  
+
   def eval_string(str)
     begin
       eval str
@@ -25,12 +25,12 @@ class Shiki
       pm2.log("NameError: #{str}")
     end #begin
   end #def
-  
+
   def run(proc)
     bstalk = Beaneater.new("#{beanstalk_host}\:#{beanstalk_port}")
     bstalk.tubes.find(@module_name) # also creates the tube
     bstalk.tubes.watch!(@module_name)
-    
+
     core_threads << Thread.new {
       loop do
         job = bstalk.tubes.reserve
