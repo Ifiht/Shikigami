@@ -91,7 +91,7 @@ core_threads << Thread.new {
   bot.message(starting_with: "<@1211423563475849236>") do |event|
     msg_body = event.message.content.gsub("<@1211423563475849236>", "").to_s
     log_to_pm2("Received msg: #{msg_body}")
-    bot.start_typing
+    event.channel.start_typing
     a = ask_question(INST + CHAT + "\n@User: " + msg_body + "\n@Wayland:")
     log_to_pm2("Sending msg: #{a}")
     if a.include? "@Wayland:"
