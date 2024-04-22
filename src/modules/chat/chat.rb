@@ -1,14 +1,34 @@
 #=============<[ Gems ]>=============#
 require "http"
-require 'json'
+require "json"
+require "beaneater"
 require "require_all"
 #==========<[ Local Libs ]>==========#
 #require_rel "../../lib/shiki_gram"
 require_rel "../../lib/app_settings"
 require_rel "../../lib/shiki_stdlib"
 
-prompt = "Hello world."
-req_json = {
+response = HTTP.post("http://localhost:4242/completion", :json => req_json)
+my_hash = JSON.parse(response.body)
+puts my_hash["content"]
+
+shiki = Shiki.new("chat")
+core_config = AppSettings.new
+beanstalk_host = core_config.get("beanstalk_host")
+beanstalk_port = core_config.get("beanstalk_port")
+core_threads = []
+
+bstalk = Beaneater.new("#{beanstalk_host}\:#{beanstalk_port}")
+bstalk.tubes.find("chat") # also creates the tube
+bstalk.tubes.watch!("chat")
+
+def log_to_pm2(message)
+  $stdout.puts message
+  $stdout.flush
+end #def
+
+def format_question(prompt)
+  request = {
     "stream"=> false,
     "n_predict"=> 400,
     "temperature"=> 0,
@@ -29,35 +49,13 @@ req_json = {
     "grammar"=> "",
     "n_probs"=> 0,
     "prompt"=> prompt
-}
-response = HTTP.post("http://localhost:4242/completion", :json => req_json)
-my_hash = JSON.parse(response.body)
-puts my_hash["content"]
+  }
+  return request.to_json
+end #def
 
+def ask_question(str)
+  question = format_question(str)
 
-shiki = Shiki.new("chat")
-core_config = AppSettings.new
-beanstalk_host = core_config.get("beanstalk_host")
-beanstalk_port = core_config.get("beanstalk_port")
-core_threads = []
-
-bstalk = Beaneater.new("#{beanstalk_host}\:#{beanstalk_port}")
-bstalk.tubes.find("chat") # also creates the tube
-bstalk.tubes.watch!("chat")
-
-def log_to_pm2(message)
-  $stdout.puts message
-  $stdout.flush
-end
-
-def eval_string(str)
-  begin
-    eval str
-  rescue SyntaxError
-    log_to_pm2("SyntaxError: #{str}")
-  rescue NameError
-    log_to_pm2("NameError: #{str}")
-  end #begin
 end #def
 
 core_threads << Thread.new {
@@ -67,7 +65,7 @@ core_threads << Thread.new {
       str = sgram.open_msg(job.body)
       log_to_pm2("Received job: #{str}")
       begin
-        eval_string(str)
+        ask_question(str)
       rescue Exception => e
         log_to_pm2("Rescued job: #{e}")
       end
