@@ -20,7 +20,7 @@ bstalk = Beaneater.new("#{beanstalk_host}\:#{beanstalk_port}")
 bstalk.tubes.find("discord") # also creates the tube
 bstalk.tubes.watch!("discord")
 
-INST = "A chat between a curious human and an artificial intelligence assistant. The assistant gives honest, detailed, and quick answers to the human's questions."
+INST = "A chat between an important human and an artificial intelligence assistant. The assistant gives quick and truthful answers to the human's questions. The assistant's responses are thorough, but succinct."
 CHAT = "\n@User: Hello, Wayland.\n@Wayland: Hi.\n@User: What is the closest star to our sun?\n@Wayland: The closest star to our sun Sol is Alpha Centauri."
 
 def log_to_pm2(message)
