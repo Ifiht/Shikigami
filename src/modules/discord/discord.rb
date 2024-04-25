@@ -39,25 +39,26 @@ def eval_string(str)
 end #def
 
 def format_question(prompt)
+  i = rand(99)
   request = {
     "stream" => false,        # keep false, breaks if true
-    "n_predict" => 400,       # notes
-    "temperature" => 0.2,       # was:0, def:0-1, higher is more creative
+    "seed" => i,              # Set the random number generator (RNG) seed.
+    "n_predict" => 500,       # notes
+    "temperature" => 0.4,     # was:0, def:0-1, higher is more creative
     "stop" => ["\n@User:"],   # notes
-    "repeat_last_n" => 256,   # notes
-    "repeat_penalty" => 1,    # notes
+    "repeat_last_n" => 128,   # Last n tokens to consider for penalizing repetition. 0 is disabled and -1 is ctx-size.
+    "repeat_penalty" => 1.1,  # Control the repetition of token sequences in the generated text.
     "top_k" => 25,            # was:20, def:40
-    "top_p" => 0.7,           # notes
+    "top_p" => 0.7,           # def:0.95, higher finds better predictions, but slower
     "tfs_z" => 1,             # https://www.trentonbricken.com/Tail-Free-Sampling/
     "typical_p" => 1,         # notes
     "presence_penalty" => 0,  # notes
     "frequency_penalty" => 0, # notes
     "mirostat" => 0,          # notes
-    "mirostat_tau" => 5,      # notes
-    "mirostat_eta" => 0.1,    # notes
-    "grammar" => "",          # notes
+    "mirostat_tau" => 5.0,    # Set the Mirostat target entropy, parameter tau.
+    "mirostat_eta" => 0.1,    # Set the Mirostat learning rate, parameter eta.
     "n_probs" => 0,           # notes
-    "prompt" => prompt,       # the human prompt, with context
+    "prompt" => prompt,       # https://github.com/ggerganov/llama.cpp/blob/master/examples/server/README.md
   }
   return request
 end #def
