@@ -40,24 +40,24 @@ end #def
 
 def format_question(prompt)
   request = {
-    "stream" => false,
-    "n_predict" => 400,
-    "temperature" => 0,
-    "stop" => ["\n@User:"],
-    "repeat_last_n" => 256,
-    "repeat_penalty" => 1,
-    "top_k" => 20,
-    "top_p" => 0.75,
-    "tfs_z" => 1,
-    "typical_p" => 1,
-    "presence_penalty" => 0,
-    "frequency_penalty" => 0,
-    "mirostat" => 0,
-    "mirostat_tau" => 5,
-    "mirostat_eta" => 0.1,
-    "grammar" => "",
-    "n_probs" => 0,
-    "prompt" => prompt,
+    "stream" => false,        # keep false, breaks if true
+    "n_predict" => 400,       # notes
+    "temperature" => 0.2,       # was:0, def:0-1, higher is more creative
+    "stop" => ["\n@User:"],   # notes
+    "repeat_last_n" => 256,   # notes
+    "repeat_penalty" => 1,    # notes
+    "top_k" => 25,            # was:20, def:40
+    "top_p" => 0.7,           # notes
+    "tfs_z" => 1,             # https://www.trentonbricken.com/Tail-Free-Sampling/
+    "typical_p" => 1,         # notes
+    "presence_penalty" => 0,  # notes
+    "frequency_penalty" => 0, # notes
+    "mirostat" => 0,          # notes
+    "mirostat_tau" => 5,      # notes
+    "mirostat_eta" => 0.1,    # notes
+    "grammar" => "",          # notes
+    "n_probs" => 0,           # notes
+    "prompt" => prompt,       # the human prompt, with context
   }
   return request
 end #def
