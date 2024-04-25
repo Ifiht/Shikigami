@@ -50,12 +50,12 @@ def format_question(prompt)
     "repeat_penalty" => 1.1,  # Control the repetition of token sequences in the generated text.
     "top_k" => 30,            # was:20, def:40
     "top_p" => 0.8,           # def:0.95, higher finds better predictions, but slower
-    "tfs_z" => 1,             # https://www.trentonbricken.com/Tail-Free-Sampling/
-    "typical_p" => 1,         # notes
-    "presence_penalty" => 0,  # notes
-    "frequency_penalty" => 0, # notes
-    "mirostat" => 0,          # notes
-    "mirostat_tau" => 5.0,    # Set the Mirostat target entropy, parameter tau.
+    "tfs_z" => 1,             # def:1(disabled) https://www.trentonbricken.com/Tail-Free-Sampling/
+    "typical_p" => 1,         # def:1(disabled)
+    "presence_penalty" => 0,  # def:0(disabled)
+    "frequency_penalty" => 0, # def:0(disabled)
+    "mirostat" => 2,          # def:0(disabled), 1=Mirostat 1.0, 2=Mirostat 2.0
+    "mirostat_tau" => 3.0,    # Set the Mirostat target entropy, parameter tau.
     "mirostat_eta" => 0.1,    # Set the Mirostat learning rate, parameter eta.
     "n_probs" => 0,           # notes
     "prompt" => prompt,       # https://github.com/ggerganov/llama.cpp/blob/master/examples/server/README.md
