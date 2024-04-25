@@ -44,12 +44,12 @@ def format_question(prompt)
     "stream" => false,        # keep false, breaks if true
     "seed" => i,              # Set the random number generator (RNG) seed.
     "n_predict" => 500,       # notes
-    "temperature" => 0.45,     # was:0, def:0-1, higher is more creative
+    "temperature" => 0.55,    # was:0, def:0-1, higher is more creative
     "stop" => ["\n@User:"],   # notes
     "repeat_last_n" => 128,   # Last n tokens to consider for penalizing repetition. 0 is disabled and -1 is ctx-size.
     "repeat_penalty" => 1.1,  # Control the repetition of token sequences in the generated text.
-    "top_k" => 25,            # was:20, def:40
-    "top_p" => 0.7,           # def:0.95, higher finds better predictions, but slower
+    "top_k" => 30,            # was:20, def:40
+    "top_p" => 0.8,           # def:0.95, higher finds better predictions, but slower
     "tfs_z" => 1,             # https://www.trentonbricken.com/Tail-Free-Sampling/
     "typical_p" => 1,         # notes
     "presence_penalty" => 0,  # notes
