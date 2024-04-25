@@ -20,8 +20,8 @@ bstalk = Beaneater.new("#{beanstalk_host}\:#{beanstalk_port}")
 bstalk.tubes.find("discord") # also creates the tube
 bstalk.tubes.watch!("discord")
 
-INST = "A chat between an important human and an artificial intelligence assistant. The assistant gives quick and truthful answers to the human's questions. The assistant's responses are thorough, but succinct."
-CHAT = "\n@User: Hello, Wayland.\n@Wayland: Hi.\n@User: What is the closest star to our sun?\n@Wayland: The closest star to our sun Sol is Alpha Centauri."
+INST = "A chat between a very important human and an artificial intelligence assistant. The assistant gives quick and truthful answers to the human's questions. The assistant's responses are thorough, but succinct."
+CHAT = "\n@User: Hello, Wayland.\n@Wayland: Greetings.\n@User: What is the closest star to our sun?\n@Wayland: The closest star to our sun Sol is Alpha Centauri."
 
 def log_to_pm2(message)
   $stdout.puts message
@@ -44,7 +44,7 @@ def format_question(prompt)
     "stream" => false,        # keep false, breaks if true
     "seed" => i,              # Set the random number generator (RNG) seed.
     "n_predict" => 500,       # notes
-    "temperature" => 0.4,     # was:0, def:0-1, higher is more creative
+    "temperature" => 0.45,     # was:0, def:0-1, higher is more creative
     "stop" => ["\n@User:"],   # notes
     "repeat_last_n" => 128,   # Last n tokens to consider for penalizing repetition. 0 is disabled and -1 is ctx-size.
     "repeat_penalty" => 1.1,  # Control the repetition of token sequences in the generated text.
