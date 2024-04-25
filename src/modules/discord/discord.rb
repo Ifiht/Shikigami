@@ -44,7 +44,7 @@ def format_question(prompt)
     "stream" => false,        # keep false, breaks if true
     "seed" => i,              # Set the random number generator (RNG) seed.
     "n_predict" => 500,       # notes
-    "temperature" => 0.55,    # was:0, def:0-1, higher is more creative
+    "temperature" => 0.5,     # was:0, def:0-1, higher is more creative
     "stop" => ["\n@User:"],   # notes
     "repeat_last_n" => 128,   # Last n tokens to consider for penalizing repetition. 0 is disabled and -1 is ctx-size.
     "repeat_penalty" => 1.1,  # Control the repetition of token sequences in the generated text.
@@ -55,7 +55,7 @@ def format_question(prompt)
     "presence_penalty" => 0,  # def:0(disabled)
     "frequency_penalty" => 0, # def:0(disabled)
     "mirostat" => 2,          # def:0(disabled), 1=Mirostat 1.0, 2=Mirostat 2.0
-    "mirostat_tau" => 3.0,    # Set the Mirostat target entropy, parameter tau.
+    "mirostat_tau" => 4.0,    # Set the Mirostat target entropy, parameter tau.
     "mirostat_eta" => 0.1,    # Set the Mirostat learning rate, parameter eta.
     "n_probs" => 0,           # notes
     "prompt" => prompt,       # https://github.com/ggerganov/llama.cpp/blob/master/examples/server/README.md
