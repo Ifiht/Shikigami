@@ -48,7 +48,7 @@ def format_question(prompt)
     "stop" => ["\n@User:"],   # notes
     "repeat_last_n" => 128,   # Last n tokens to consider for penalizing repetition. 0 is disabled and -1 is ctx-size.
     "repeat_penalty" => 1.1,  # Control the repetition of token sequences in the generated text.
-    "top_k" => 29,            # def:40, Limit the next token selection to the K most probable tokens.
+    "top_k" => 32,            # def:40, Limit the next token selection to the K most probable tokens.
     "top_p" => 0.8,           # def:0.95, higher finds better predictions, but slower
     "min_p" => 0.07,          # def:0.05, The minimum probability for a token to be considered, relative to the probability of the most likely token.
     "tfs_z" => 1,             # def:1(disabled) https://www.trentonbricken.com/Tail-Free-Sampling/
