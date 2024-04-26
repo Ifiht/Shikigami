@@ -48,8 +48,9 @@ def format_question(prompt)
     "stop" => ["\n@User:"],   # notes
     "repeat_last_n" => 128,   # Last n tokens to consider for penalizing repetition. 0 is disabled and -1 is ctx-size.
     "repeat_penalty" => 1.1,  # Control the repetition of token sequences in the generated text.
-    "top_k" => 27,            # def:40, Limit the next token selection to the K most probable tokens.
+    "top_k" => 29,            # def:40, Limit the next token selection to the K most probable tokens.
     "top_p" => 0.8,           # def:0.95, higher finds better predictions, but slower
+    "min_p" => 0.07,          # def:0.05, The minimum probability for a token to be considered, relative to the probability of the most likely token.
     "tfs_z" => 1,             # def:1(disabled) https://www.trentonbricken.com/Tail-Free-Sampling/
     "typical_p" => 1,         # def:1(disabled)
     "presence_penalty" => 0,  # def:0(disabled)
@@ -57,7 +58,6 @@ def format_question(prompt)
     "mirostat" => 0,          # def:0(disabled), 1=Mirostat 1.0, 2=Mirostat 2.0
     "mirostat_tau" => 4.0,    # Set the Mirostat target entropy, parameter tau.
     "mirostat_eta" => 0.1,    # Set the Mirostat learning rate, parameter eta.
-    "n_probs" => 0,           # notes
     "prompt" => prompt,       # https://github.com/ggerganov/llama.cpp/blob/master/examples/server/README.md
   }
   return request
