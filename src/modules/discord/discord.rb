@@ -21,7 +21,7 @@ bstalk.tubes.find("discord") # also creates the tube
 bstalk.tubes.watch!("discord")
 
 INST = "A chat between a very important human and an artificial intelligence assistant. The assistant gives quick and truthful answers to the human's questions. The assistant's responses are thorough, but succinct."
-CHAT = "\n@User: Hello.\n@Wayland: Greetings.\n@User: What's your name?\n@Wayland: Wayland.\n@User: What is the closest star to our sun?\n@Wayland: The closest star to our sun Sol is Alpha Centauri."
+CHAT = "\n@User: Hello.\n@Wayland: Greetings.\n@User: What do you call yourself?\n@Wayland: Wayland.\n@User: What is the closest star to our sun?\n@Wayland: The closest star to our sun Sol is Alpha Centauri."
 
 def log_to_pm2(message)
   $stdout.puts message
