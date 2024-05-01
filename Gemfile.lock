@@ -1,3 +1,10 @@
+GIT
+  remote: https://github.com/Ifiht/Spriggan
+  revision: 7a2ccfa2a05246a101bc66c0e9ec8d1ffbc4ce0d
+  specs:
+    spriggan (0.0.0)
+      beaneater (~> 1.1, >= 1.1.0)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -126,6 +133,7 @@ DEPENDENCIES
   rake
   require_all
   rufo
+  spriggan!
   telegram-bot-ruby (~> 1.0)
 
 BUNDLED WITH
