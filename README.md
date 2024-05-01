@@ -52,9 +52,11 @@ Every directory under `modules` with a valid `wrapper.sh` file will automaticall
 - [llama.cpp](https://github.com/ggerganov/llama.cpp/tree/master)
 - [Llama Family](https://huggingface.co/meta-llama)
 - [Discordrb](https://github.com/shardlab/discordrb/tree/main)
+- [Spriggan](https://github.com/Ifiht/Spriggan/blob/main)
+- [RedFairyBook](https://github.com/Ifiht/RedFairyBook/tree/main)
 
 ## Training Data:
-The Large Language Model (LLM) used in this project is currently Llama 2, which is trained on the following:
+The Large Language Model (LLM) used in this project is currently Llama 3, which is trained on the following:
 - 67.0% CommonCrawl
 - 15.0% C4
 - 4.5% GitHub
