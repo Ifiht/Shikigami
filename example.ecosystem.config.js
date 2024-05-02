@@ -6,7 +6,7 @@ module.exports = {
   },
   {
     name   : "core.rb",
-    script: 'ruby',
+    script: 'bundle exec ruby',
     args: './src/core.rb',
     watch: true,
     restart_delay: 1000,
