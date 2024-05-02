@@ -1,16 +1,16 @@
 #=============<[ Gems ]>=============#
 require "http"
 require "json"
+require "redfairy"
 require "discordrb"
 require "beaneater"
 require "require_all"
 #==========<[ Local Libs ]>==========#
 #require_rel "../../lib/shiki_gram"
-require_rel "../../lib/app_settings"
 require_rel "../../lib/shiki_stdlib"
 
 shiki = Shiki.new("discord")
-core_config = AppSettings.new
+core_config = RedFairy.new("shikigami")
 discord_token = core_config.get("api_discord_token")
 beanstalk_host = core_config.get("beanstalk_host")
 beanstalk_port = core_config.get("beanstalk_port")

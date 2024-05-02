@@ -1,4 +1,4 @@
 #!/bin/env bash
 
 echo "Starting discord..."
-ruby discord.rb
+bundle exec ruby discord.rb

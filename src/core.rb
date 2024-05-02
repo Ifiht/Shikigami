@@ -1,6 +1,7 @@
 #=============<[ Gems ]>=============#
 require "json"
 require "socket"
+require "redfairy"
 require "beaneater"
 require "io/console"
 require "concurrent"
@@ -8,7 +9,6 @@ require "require_all"
 #==========<[ Local Libs ]>==========#
 require_rel "lib/shiki_gram"
 require_rel "lib/pm2_helper"
-require_rel "lib/app_settings"
 
 #@@@@@@ USERS MAY EDIT THEIR SETTINGS BELOW:
 #[[[[[[ INITIALIZE CONFIG & ALL LIBRARY CLASSES HERE]]]]]]
@@ -18,7 +18,7 @@ procs = []
 sgram = ShikiGram.new
 modules1 = []
 modules2 = []
-core_config = AppSettings.new
+core_config = RedFairy.new("shikigami")
 beanstalk_host = core_config.get("beanstalk_host")
 beanstalk_port = core_config.get("beanstalk_port")
 
