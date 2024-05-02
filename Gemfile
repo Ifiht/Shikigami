@@ -5,8 +5,8 @@ gem "beaneater"
 gem "discordrb"
 gem "net-ping", "~> 1.7", ">= 1.7.8"
 gem "jemalloc"
-gem "spriggan", git: "https://github.com/Ifiht/Spriggan"
-gem "redfairy", git: "https://github.com/Ifiht/RedFairyBook"
+gem "spriggan", :git => "https://github.com/Ifiht/Spriggan", :branch => 'main'
+gem "redfairy", :git => "https://github.com/Ifiht/RedFairyBook", :branch => 'main'
 gem "listen", "~> 2.0"
 gem "httpx"
 gem "http"
