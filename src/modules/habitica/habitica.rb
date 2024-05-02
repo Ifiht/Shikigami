@@ -1,13 +1,13 @@
 #=============<[ Gems ]>=============#
+require "redfairy"
 require "beaneater"
 require "require_all"
 #==========<[ Local Libs ]>==========#
 require_rel "../../lib/shiki_gram"
-require_rel "../../lib/app_settings"
 require_relative "lib_habitica"
 
 sgram = ShikiGram.new
-core_config = AppSettings.new
+core_config = RedFairy.new("shikigami")
 habitica_usrid = core_config.get("api_habitica_usrid")
 habitica_token = core_config.get("api_habitica_token")
 beanstalk_host = core_config.get("beanstalk_host")

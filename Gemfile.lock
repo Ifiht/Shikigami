@@ -1,4 +1,10 @@
 GIT
+  remote: https://github.com/Ifiht/RedFairyBook
+  revision: 0a91ba4a74c8020feaa17e8bc6f3fadfbf211fcf
+  specs:
+    redfairy (0.1.2)
+
+GIT
   remote: https://github.com/Ifiht/Spriggan
   revision: 7a2ccfa2a05246a101bc66c0e9ec8d1ffbc4ce0d
   specs:
@@ -131,6 +137,7 @@ DEPENDENCIES
   pp
   puma
   rake
+  redfairy!
   require_all
   rufo
   spriggan!
