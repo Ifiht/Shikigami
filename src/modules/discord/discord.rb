@@ -66,6 +66,19 @@ def ask_question(q)
   return h["content"]
 end #def
 
+def respond(e)
+  log_to_pm2("Received msg: #{e.message.content}")
+  msg_body = event.message.content.gsub("<@1211423563475849236>", "Wayland").gsub("<@&1211432785353637999>", "Wayland").to_s
+  e.channel.start_typing
+  a = ask_question(INST + CHAT + "\n@User: " + msg_body + "\n@Wayland:")
+  log_to_pm2("Sending msg: #{a}")
+  if a.include? "@Wayland:"
+    e.respond a.gsub("@Wayland:", "").to_s
+  else
+    e.respond a.to_s
+  end #if
+end #def
+
 core_threads << Thread.new {
   loop do
     job = bstalk.tubes.reserve
@@ -85,18 +98,11 @@ core_threads << Thread.new {
 # join url: https://discordapp.com/oauth2/authorize?&client_id=1211423563475849236&scope=bot&permissions=274878155840
 core_threads << Thread.new {
   bot = Discordrb::Bot.new token: discord_token
-  bot.message(starting_with: "<@1211423563475849236>" || "<@&1211432785353637999>") do |event|
-    log_to_pm2("Received msg: #{msg_body}")
-    msg_body = event.message.content.gsub("<@1211423563475849236>", "Wayland").to_s
-    msg_body = event.message.content.gsub("<@&1211432785353637999>", "Wayland").to_s
-    event.channel.start_typing
-    a = ask_question(INST + CHAT + "\n@User: " + msg_body + "\n@Wayland:")
-    log_to_pm2("Sending msg: #{a}")
-    if a.include? "@Wayland:"
-      event.respond a.gsub("@Wayland:", "").to_s
-    else
-      event.respond a.to_s
-    end #if
+  bot.message(starting_with: "<@1211423563475849236>") do |event|
+    respond(event)
+  end
+  bot.message(starting_with: "<@&1211432785353637999>") do |event|
+    respond(event)
   end
   at_exit { bot.stop }
   bot.run
