@@ -68,7 +68,7 @@ end #def
 
 def respond(e)
   log_to_pm2("Received msg: #{e.message.content}")
-  msg_body = event.message.content.gsub("<@1211423563475849236>", "Wayland").gsub("<@&1211432785353637999>", "Wayland").to_s
+  msg_body = e.message.content.gsub("<@1211423563475849236>", "Wayland").gsub("<@&1211432785353637999>", "Wayland").to_s
   e.channel.start_typing
   a = ask_question(INST + CHAT + "\n@User: " + msg_body + "\n@Wayland:")
   log_to_pm2("Sending msg: #{a}")
