@@ -1,6 +1,7 @@
 source "https://rubygems.org"
 gem "telegram-bot-ruby", "~> 1.0"
 gem "require_all"
+gem "solargraph"
 gem "beaneater"
 gem "discordrb"
 gem "net-ping", "~> 1.7", ">= 1.7.8"
