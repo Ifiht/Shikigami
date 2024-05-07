@@ -1,10 +1,9 @@
 #=============<[ Gems ]>=============#
 require "http"
 require "json"
+require "spriggan"
 require "redfairy"
 require "discordrb"
-require "beaneater"
-require "require_all"
 
 core_config = RedFairy.new("shikigami")
 discord_token = core_config.get("api_discord_token")
@@ -12,25 +11,22 @@ beanstalk_host = core_config.get("beanstalk_host")
 beanstalk_port = core_config.get("beanstalk_port")
 core_threads = []
 
-bstalk = Beaneater.new("#{beanstalk_host}\:#{beanstalk_port}")
-bstalk.tubes.find("discord") # also creates the tube
-bstalk.tubes.watch!("discord")
+sprig = Spriggan.new(
+  beanstalk_host: beanstalk_host,
+  beanstalk_port: beanstalk_port,
+  module_name: "discord"
+)
 
 INST = "A chat between a very important human and an artificial intelligence assistant. The assistant gives quick and truthful answers to the human's questions. The assistant's responses are thorough, but succinct."
 CHAT = "\n@User: Hello.\n@Wayland: Greetings.\n@User: What do you call yourself?\n@Wayland: Wayland.\n@User: What is the closest star to our sun?\n@Wayland: The closest star to our sun Sol is Alpha Centauri."
-
-def log_to_pm2(message)
-  $stdout.puts message
-  $stdout.flush
-end
 
 def eval_string(str)
   begin
     eval str
   rescue SyntaxError
-    log_to_pm2("SyntaxError: #{str}")
+    sprig.pm2_log("SyntaxError: #{str}")
   rescue NameError
-    log_to_pm2("NameError: #{str}")
+    sprig.pm2_log("NameError: #{str}")
   end #begin
 end #def
 
@@ -67,11 +63,11 @@ def ask_question(q)
 end #def
 
 def respond(e)
-  log_to_pm2("Received msg: #{e.message.content}")
+  sprig.pm2_log("Received msg: #{e.message.content}")
   msg_body = e.message.content.gsub("<@1211423563475849236>", "Wayland").gsub("<@&1211432785353637999>", "Wayland").to_s
   e.channel.start_typing
   a = ask_question(INST + CHAT + "\n@User: " + msg_body + "\n@Wayland:")
-  log_to_pm2("Sending msg: #{a}")
+  sprig.pm2_log("Sending msg: #{a}")
   if a.include? "@Wayland:"
     e.respond a.gsub("@Wayland:", "").to_s
   else
@@ -79,24 +75,19 @@ def respond(e)
   end #if
 end #def
 
-core_threads << Thread.new {
+sprig.add_thread {
   loop do
-    job = bstalk.tubes.reserve
-    if job.exists?
-      str = sgram.open_msg(job.body)
-      log_to_pm2("Received job: #{str}")
-      begin
-        eval_string(str)
-      rescue Exception => e
-        log_to_pm2("Rescued job: #{e}")
-      end
-      job.delete
-    end #if
-    sleep 0.00024
+    msg_hash = sprig.get_msg
+    begin
+      eval_string(msg_hash["msg"])
+    rescue Exception => e
+      sprig.pm2_log("Rescued job: #{e}")
+    end #begin
   end #loop
 }
+
 # join url: https://discordapp.com/oauth2/authorize?&client_id=1211423563475849236&scope=bot&permissions=274878155840
-core_threads << Thread.new {
+sprig.add_thread {
   bot = Discordrb::Bot.new token: discord_token
   bot.message(starting_with: "<@1211423563475849236>") do |event|
     respond(event)
@@ -108,17 +99,5 @@ core_threads << Thread.new {
   bot.run
 }
 
-#[[[[[[ CATCH INTERRUPT ]]]]]]
-Signal.trap("INT") {
-  i = 0
-  core_threads.each { |t|
-    log_to_pm2 "killing core thread #{i}.."
-    t.kill
-    i += 1
-  }
-  log_to_pm2 "Exiting gracefully."
-  exit
-}
-
-#[[[[[[ JOIN THREADS ]]]]]]
-core_threads.each { |thr| thr.join }
+#[[[[[[ RUN THREADS ]]]]]]
+sprig.run

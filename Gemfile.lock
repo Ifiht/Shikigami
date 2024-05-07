@@ -1,16 +1,16 @@
 GIT
   remote: https://github.com/Ifiht/RedFairyBook
-  revision: 0a91ba4a74c8020feaa17e8bc6f3fadfbf211fcf
+  revision: 55e11fe0645e6145bd524bf06ad9a5d054bd1296
   branch: main
   specs:
     redfairy (0.1.2)
 
 GIT
   remote: https://github.com/Ifiht/Spriggan
-  revision: 1a9e713a89cc10db45d0478cdb58c207da385b7c
+  revision: aba6b6e0f5a9efeded7fcc6c48f060882abd8766
   branch: main
   specs:
-    spriggan (0.0.0)
+    spriggan (0.1.2)
       beaneater (~> 1.1, >= 1.1.0)
 
 GEM
@@ -130,7 +130,6 @@ GEM
     zeitwerk (2.6.13)
 
 PLATFORMS
-  ruby
   x86_64-linux
 
 DEPENDENCIES
@@ -151,4 +150,4 @@ DEPENDENCIES
   telegram-bot-ruby (~> 1.0)
 
 BUNDLED WITH
-   2.5.6
+   2.3.26
