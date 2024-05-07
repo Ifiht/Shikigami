@@ -14,7 +14,7 @@ core_threads = []
 @sprig = Spriggan.new(
   beanstalk_host: beanstalk_host,
   beanstalk_port: beanstalk_port,
-  module_name: "discord"
+  module_name: "discord",
 )
 
 INST = "A chat between a very important human and an artificial intelligence assistant. The assistant gives quick and truthful answers to the human's questions. The assistant's responses are thorough, but succinct."
