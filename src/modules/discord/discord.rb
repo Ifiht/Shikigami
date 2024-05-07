@@ -11,7 +11,7 @@ beanstalk_host = core_config.get("beanstalk_host")
 beanstalk_port = core_config.get("beanstalk_port")
 core_threads = []
 
-sprig = Spriggan.new(
+@sprig = Spriggan.new(
   beanstalk_host: beanstalk_host,
   beanstalk_port: beanstalk_port,
   module_name: "discord"
@@ -24,9 +24,9 @@ def eval_string(str)
   begin
     eval str
   rescue SyntaxError
-    sprig.pm2_log("SyntaxError: #{str}")
+    @sprig.pm2_log("SyntaxError: #{str}")
   rescue NameError
-    sprig.pm2_log("NameError: #{str}")
+    @sprig.pm2_log("NameError: #{str}")
   end #begin
 end #def
 
@@ -63,11 +63,11 @@ def ask_question(q)
 end #def
 
 def respond(e)
-  sprig.pm2_log("Received msg: #{e.message.content}")
+  @sprig.pm2_log("Received msg: #{e.message.content}")
   msg_body = e.message.content.gsub("<@1211423563475849236>", "Wayland").gsub("<@&1211432785353637999>", "Wayland").to_s
   e.channel.start_typing
   a = ask_question(INST + CHAT + "\n@User: " + msg_body + "\n@Wayland:")
-  sprig.pm2_log("Sending msg: #{a}")
+  @sprig.pm2_log("Sending msg: #{a}")
   if a.include? "@Wayland:"
     e.respond a.gsub("@Wayland:", "").to_s
   else
@@ -75,19 +75,19 @@ def respond(e)
   end #if
 end #def
 
-sprig.add_thread {
+@sprig.add_thread {
   loop do
-    msg_hash = sprig.get_msg
+    msg_hash = @sprig.get_msg
     begin
       eval_string(msg_hash["msg"])
     rescue Exception => e
-      sprig.pm2_log("Rescued job: #{e}")
+      @sprig.pm2_log("Rescued job: #{e}")
     end #begin
   end #loop
 }
 
 # join url: https://discordapp.com/oauth2/authorize?&client_id=1211423563475849236&scope=bot&permissions=274878155840
-sprig.add_thread {
+@sprig.add_thread {
   bot = Discordrb::Bot.new token: discord_token
   bot.message(starting_with: "<@1211423563475849236>") do |event|
     respond(event)
@@ -100,4 +100,4 @@ sprig.add_thread {
 }
 
 #[[[[[[ RUN THREADS ]]]]]]
-sprig.run
+@sprig.run
