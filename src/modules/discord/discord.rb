@@ -1,25 +1,30 @@
-#=============<[ Gems ]>=============#
+#=============<[ Gems ]>======================#
 require "http"
 require "json"
 require "spriggan"
 require "redfairy"
 require "discordrb"
 
+#=============<[ Local Vars ]>================#
 core_config = RedFairy.new("shikigami")
-discord_token = core_config.get("api_discord_token")
-beanstalk_host = core_config.get("beanstalk_host")
-beanstalk_port = core_config.get("beanstalk_port")
-core_threads = []
+
+#=============<[ Instance Vars ]>=============#
+@discord_token = core_config.get("api_discord_token")
+@beanstalk_host = core_config.get("beanstalk_host")
+@beanstalk_port = core_config.get("beanstalk_port")
 
 @sprig = Spriggan.new(
-  beanstalk_host: beanstalk_host,
-  beanstalk_port: beanstalk_port,
-  module_name: "discord",
+  beanstalk_host: @beanstalk_host,
+  beanstalk_port: @beanstalk_port,
+  module_name: "discord"
 )
 
+#=============<[ Constants ]>================#
 INST = "A chat between a very important human and an artificial intelligence assistant. The assistant gives quick and truthful answers to the human's questions. The assistant's responses are thorough, but succinct."
 CHAT = "\n@User: Hello.\n@Wayland: Greetings.\n@User: What do you call yourself?\n@Wayland: Wayland.\n@User: What is the closest star to our sun?\n@Wayland: The closest star to our sun Sol is Alpha Centauri."
 
+#=============<[ Methods ]>==================#
+# Evaluates a string and logs to PM2 on error
 def eval_string(str)
   begin
     eval str
@@ -30,6 +35,7 @@ def eval_string(str)
   end #begin
 end #def
 
+# Parameters passed to llama.cpp running Llama 3
 def format_question(prompt)
   i = rand(99)
   request = {
@@ -55,6 +61,7 @@ def format_question(prompt)
   return request
 end #def
 
+# HTTP request interface to llama.cpp server
 def ask_question(q)
   question = format_question(q)
   response = HTTP.post("http://localhost:4242/completion", :json => question)
@@ -62,6 +69,7 @@ def ask_question(q)
   return h["content"]
 end #def
 
+# Discord chat logic to receive msg and send response
 def respond(e)
   @sprig.pm2_log("Received msg: #{e.message.content}")
   msg_body = e.message.content.gsub("<@1211423563475849236>", "Wayland").gsub("<@&1211432785353637999>", "Wayland").to_s
@@ -75,6 +83,10 @@ def respond(e)
   end #if
 end #def
 
+#============================================#
+#+++-----      <[ Main Body ]>       -----+++#
+#============================================#
+# join url: https://discordapp.com/oauth2/authorize?&client_id=1211423563475849236&scope=bot&permissions=274878155840
 @sprig.add_thread {
   loop do
     msg_hash = @sprig.get_msg
@@ -85,10 +97,8 @@ end #def
     end #begin
   end #loop
 }
-
-# join url: https://discordapp.com/oauth2/authorize?&client_id=1211423563475849236&scope=bot&permissions=274878155840
 @sprig.add_thread {
-  bot = Discordrb::Bot.new token: discord_token
+  bot = Discordrb::Bot.new token: @discord_token
   bot.message(starting_with: "<@1211423563475849236>") do |event|
     respond(event)
   end
