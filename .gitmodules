@@ -1,6 +1,3 @@
 [submodule "beanstalkd"]
 	path = beanstalkd
 	url = https://github.com/beanstalkd/beanstalkd.git
-[submodule "src/modules/redis/redis"]
-	path = src/modules/redis/redis
-	url = https://github.com/redis/redis
