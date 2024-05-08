@@ -1,67 +1,41 @@
 #=============<[ Gems ]>=============#
 require "json"
 require "socket"
+require "spriggan"
 require "redfairy"
 require "beaneater"
 require "io/console"
 require "concurrent"
 require "require_all"
-#==========<[ Local Libs ]>==========#
-require_rel "lib/shiki_gram"
-require_rel "lib/pm2_helper"
 
-#@@@@@@ USERS MAY EDIT THEIR SETTINGS BELOW:
-#[[[[[[ INITIALIZE CONFIG & ALL LIBRARY CLASSES HERE]]]]]]
-cwd = %x(pwd).chomp
-pm2 = Pm2Helper.new
-procs = []
-sgram = ShikiGram.new
-modules1 = []
-modules2 = []
+#=============<[ Local Vars ]>================#
 core_config = RedFairy.new("shikigami")
-beanstalk_host = core_config.get("beanstalk_host")
-beanstalk_port = core_config.get("beanstalk_port")
 
-#[[[[[[ DEFINE CHECK PORT OPEN ]]]]]]
-def port_open?(ip, port)
-  Timeout::timeout(2) do
-    begin
-      TCPSocket.new(ip, port).close
-      true
-    rescue Errno::ECONNREFUSED, Errno::EHOSTUNREACH, SocketError
-      false
-    rescue Timeout::Error
-      false
-    end #begin
-  end #do
-end #def
+#=============<[ Instance Vars ]>=============#
+@cwd = %x(pwd).chomp
+@procs = []
+@modules1 = []
+@modules2 = []
+@beanstalk_host = core_config.get("beanstalk_host")
+@beanstalk_port = core_config.get("beanstalk_port")
 
-def log_to_pm2(message)
-  $stdout.puts message
-  $stdout.flush
-end
+@sprig = Spriggan.new(
+  beanstalk_host: @beanstalk_host,
+  beanstalk_port: @beanstalk_port,
+  module_name: "core",
+)
 
+# Evaluates a string and logs to PM2 on error
 def eval_string(str)
   begin
     eval str
   rescue SyntaxError
-    log_to_pm2("SyntaxError: #{str}")
+    @sprig.pm2_log("SyntaxError: #{str}")
   rescue NameError
-    log_to_pm2("NameError: #{str}")
+    @sprig.pm2_log("NameError: #{str}")
   end #begin
 end #def
 
-#[[[[[[ PORT CHECK FOR SHIKIGAMI EXTERNAL RESOURCES ]]]]]]
-if port_open?(beanstalk_host, beanstalk_port)
-
-  #[[[[[[ DEFINE THREADS ]]]]]]
-  core_threads = []
-  job_threads = []
-  a = [] # empty holder array for jobs
-  semaphore = Mutex.new
-  bstalk = Beaneater.new("#{beanstalk_host}\:#{beanstalk_port}")
-  bstalk.tubes.find("core") # also creates the tube
-  bstalk.tubes.watch!("core")
 
   # Core thread to check for jobs and add them to the jobs array
   core_threads << Thread.new {
@@ -82,6 +56,29 @@ if port_open?(beanstalk_host, beanstalk_port)
     end #loop
   }
 
+#============================================#
+#+++-----      <[ Main Body ]>       -----+++#
+#============================================#
+@sprig.add_thread {
+  loop do
+    msg_hash = @sprig.get_msg
+    begin
+      eval_string(msg_hash["msg"])
+    rescue Exception => e
+      @sprig.pm2_log("Rescued job: #{e}")
+    end #begin
+  end #loop
+}
+@sprig.add_thread {
+  loop do
+    msg_hash = @sprig.get_msg
+    begin
+      eval_string(msg_hash["msg"])
+    rescue Exception => e
+      @sprig.pm2_log("Rescued job: #{e}")
+    end #begin
+  end #loop
+}
   # Core thread to check for new modules
   core_threads << Thread.new {
     loop do
