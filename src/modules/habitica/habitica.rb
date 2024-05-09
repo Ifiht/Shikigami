@@ -6,10 +6,10 @@ require_relative "lib_habitica"
 
 #=============<[ Local Vars ]>================#
 core_config = RedFairy.new("shikigami")
+habitica_usrid = core_config.get("api_habitica_usrid")
+habitica_token = core_config.get("api_habitica_token")
 
 #=============<[ Instance Vars ]>=============#
-@habitica_usrid = core_config.get("api_habitica_usrid")
-@habitica_token = core_config.get("api_habitica_token")
 @beanstalk_host = core_config.get("beanstalk_host")
 @beanstalk_port = core_config.get("beanstalk_port")
 @habitica = HabActions.new(habitica_usrid, habitica_token)
