@@ -1,66 +1,49 @@
 #=============<[ Gems ]>=============#
 require "redfairy"
-require "beaneater"
-require "require_all"
+require "spriggan"
 #==========<[ Local Libs ]>==========#
-require_rel "../../lib/shiki_gram"
 require_relative "lib_habitica"
 
-sgram = ShikiGram.new
+#=============<[ Local Vars ]>================#
 core_config = RedFairy.new("shikigami")
-habitica_usrid = core_config.get("api_habitica_usrid")
-habitica_token = core_config.get("api_habitica_token")
-beanstalk_host = core_config.get("beanstalk_host")
-beanstalk_port = core_config.get("beanstalk_port")
-core_threads = []
+
+#=============<[ Instance Vars ]>=============#
+@habitica_usrid = core_config.get("api_habitica_usrid")
+@habitica_token = core_config.get("api_habitica_token")
+@beanstalk_host = core_config.get("beanstalk_host")
+@beanstalk_port = core_config.get("beanstalk_port")
 @habitica = HabActions.new(habitica_usrid, habitica_token)
 
-bstalk = Beaneater.new("#{beanstalk_host}\:#{beanstalk_port}")
-bstalk.tubes.find("habitica") # also creates the tube
-bstalk.tubes.watch!("habitica")
+@sprig = Spriggan.new(
+  beanstalk_host: @beanstalk_host,
+  beanstalk_port: @beanstalk_port,
+  module_name: "habitica",
+)
 
-def log_to_pm2(message)
-  $stdout.puts message
-  $stdout.flush
-end
-
+#=============<[ Methods ]>==================#
+# Evaluates a string and logs to PM2 on error
 def eval_string(str)
   begin
     eval str
   rescue SyntaxError
-    log_to_pm2("SyntaxError: #{str}")
+    @sprig.pm2_log("SyntaxError: #{str}")
   rescue NameError
-    log_to_pm2("NameError: #{str}")
+    @sprig.pm2_log("NameError: #{str}")
   end #begin
 end #def
 
-core_threads << Thread.new {
+#============================================#
+#+++-----      <[ Main Body ]>       -----+++#
+#============================================#
+@sprig.add_thread {
   loop do
-    job = bstalk.tubes.reserve
-    if job.exists?
-      str = sgram.open_msg(job.body)
-      log_to_pm2("Received job: #{str}")
-      begin
-        eval_string(str)
-      rescue Exception => e
-        log_to_pm2("Rescued job: #{e}")
-      end
-      job.delete
-    end #if
-    sleep 0.00024
+    msg_hash = @sprig.get_msg
+    begin
+      eval_string(msg_hash["msg"])
+    rescue Exception => e
+      @sprig.pm2_log("Rescued job: #{e}")
+    end #begin
   end #loop
-}
-
-#[[[[[[ CATCH INTERRUPT ]]]]]]
-Signal.trap("INT") {
-  i = 0
-  core_threads.each { |t|
-    log_to_pm2 "killing core thread #{i}.."
-    t.kill
-    i += 1
-  }
-  log_to_pm2 "Exiting gracefully."
-  exit
 }
 
 #[[[[[[ JOIN THREADS ]]]]]]
