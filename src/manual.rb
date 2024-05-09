@@ -18,13 +18,13 @@ core_config = RedFairy.new("shikigami")
 beanstalk_host = core_config.get("beanstalk_host")
 beanstalk_port = core_config.get("beanstalk_port")
 
-sprig = Spriggan.new(
+@sprig = Spriggan.new(
   beanstalk_host: beanstalk_host,
   beanstalk_port: beanstalk_port,
   module_name: tube,
 )
 
-alltubes = sprig.bean_tubes
+alltubes = @sprig.bean_tubes
 
 #============================================#
 #+++-----      <[ Main Body ]>       -----+++#
@@ -36,5 +36,5 @@ elsif not alltubes.include? tube
   puts "tube #{tube} does not exist."
 else
   arg = ARGV[1]
-  sprig.send_msg(arg, tube)
+  @sprig.send_msg(arg, tube)
 end
