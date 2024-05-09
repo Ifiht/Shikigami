@@ -7,10 +7,10 @@ GIT
 
 GIT
   remote: https://github.com/Ifiht/Spriggan
-  revision: 04fce31cb179a826f139705ee9fb23d4dac62e8d
+  revision: bb8e8b4f88ccf3e819aaf8be20a2d5ef5396deeb
   branch: main
   specs:
-    spriggan (0.1.6)
+    spriggan (0.1.7)
       beaneater (~> 1.1, >= 1.1.0)
 
 GEM
