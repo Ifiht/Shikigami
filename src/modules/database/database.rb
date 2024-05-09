@@ -1,4 +1,5 @@
 #=============<[ Gems ]>=============#
+require "redis"
 require "spriggan"
 require "redfairy"
 
@@ -12,11 +13,12 @@ core_config = RedFairy.new("shikigami")
 @modules2 = []
 @beanstalk_host = core_config.get("beanstalk_host")
 @beanstalk_port = core_config.get("beanstalk_port")
+@redis = Redis.new(host: "10.0.1.1", port: 6380, db: 15)
 
 @sprig = Spriggan.new(
   beanstalk_host: @beanstalk_host,
   beanstalk_port: @beanstalk_port,
-  module_name: "example",
+  module_name: "database",
 )
 
 #=============<[ Methods ]>==================#
