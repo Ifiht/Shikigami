@@ -1,6 +1,5 @@
 source "https://rubygems.org"
-gem "telegram-bot-ruby", "~> 1.0"
-gem "require_all"
+#gem "telegram-bot-ruby", "~> 1.0" -- not used right now
 gem "solargraph"
 gem "beaneater"
 gem "discordrb"
@@ -11,7 +10,6 @@ gem "redfairy", :git => "https://github.com/Ifiht/RedFairyBook", :branch => "mai
 gem "listen", "~> 2.0"
 gem "httpx"
 gem "http"
-gem "puma"
 gem "rake"
 gem "rufo"
 gem "pp"

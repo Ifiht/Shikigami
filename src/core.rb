@@ -1,12 +1,6 @@
 #=============<[ Gems ]>=============#
-require "json"
-require "socket"
 require "spriggan"
 require "redfairy"
-require "beaneater"
-require "io/console"
-require "concurrent"
-require "require_all"
 
 #=============<[ Local Vars ]>================#
 core_config = RedFairy.new("shikigami")
