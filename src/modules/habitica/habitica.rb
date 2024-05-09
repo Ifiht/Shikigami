@@ -46,5 +46,5 @@ end #def
   end #loop
 }
 
-#[[[[[[ JOIN THREADS ]]]]]]
-core_threads.each { |thr| thr.join }
+#[[[[[[ RUN THREADS ]]]]]]
+@sprig.run
