@@ -8,6 +8,8 @@
 #| log the message "Hello, PM2" to the PM2 daemon log. For use   ||
 #| mainly with ad-hoc tasks, or schedulers like cron.            ||
 #\===============================================================//
+ENV['BUNDLE_GEMFILE'] ||= File.expand_path('../Gemfile', __dir__)
+require 'bundler/setup'
 require "spriggan"
 require "redfairy"
 
