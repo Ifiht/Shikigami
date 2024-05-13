@@ -24,7 +24,7 @@ sprig = Spriggan.new(
   module_name: tube,
 )
 
-alltubes = @sprig.bean_tubes
+alltubes = sprig.bean_tubes
 
 #============================================#
 #+++-----      <[ Main Body ]>       -----+++#
