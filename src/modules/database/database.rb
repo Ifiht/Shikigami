@@ -1,5 +1,5 @@
 #=============<[ Gems ]>=============#
-require "redis"
+require "sqlite3"
 require "spriggan"
 require "redfairy"
 
@@ -8,9 +8,6 @@ core_config = RedFairy.new("shikigami")
 
 #=============<[ Instance Vars ]>=============#
 @cwd = %x(pwd).chomp
-@procs = []
-@modules1 = []
-@modules2 = []
 @beanstalk_host = core_config.get("beanstalk_host")
 @beanstalk_port = core_config.get("beanstalk_port")
 @redis = Redis.new(host: "10.0.1.1", port: 6380, db: 15)

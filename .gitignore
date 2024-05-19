@@ -20,9 +20,7 @@ node_modules/
 /config.yml
 /ecosystem.config.js
 /responses.example
-/src/events/*
-!/src/events/evt_manual.rb
-!/src/events/evt_wrapper.sh
+*.db
 
 # Ignore Byebug command history file.
 .byebug_history

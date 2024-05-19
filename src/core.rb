@@ -46,11 +46,11 @@ end #def
 }
 @sprig.add_thread {
   loop do
-    modules2 = %x[ ls #{cwd}/src/modules ].split
-    if modules1 != modules2
-      modules1 = modules2
+    @modules2 = %x[ ls #{cwd}/src/modules ].split
+    if @modules1 != @modules2
+      @modules1 = @modules2
       pm2_proclist = @sprig.pm2_procs
-      modules1.each do |m|
+      @modules1.each do |m|
         if pm2_proclist.include? m
           @sprig.pm2_log("Skipping running module: #{m}")
         else
