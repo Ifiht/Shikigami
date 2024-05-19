@@ -9,23 +9,29 @@ BEGIN TRANSACTION;
 -- PRAGMA table_info(Personas)
 CREATE TABLE Personas(
 	PersonID INTEGER NOT NULL PRIMARY KEY,
-    FirstNameAtBirth    TEXT,
-    LastNameAtBirth     TEXT,
-    MidNameAtBirth      TEXT,
-    discordID           TEXT,
-	githubID            TEXT
+    FamilyName          TEXT,
+    GivenName           TEXT,
+    AddtnlName          TEXT,
+    HonPrefix           TEXT,
+    HonSuffix           TEXT,
+    Addr                TEXT,
+    BDay                TEXT,
+    Gender              TEXT,
+    DataDir             TEXT,
+    Socials             TEXT
 );
 
-CREATE TABLE Conversations2(
-    ConvoID INTEGER NOT NULL PRIMARY KEY,
-    PersonID INTEGER NOT NULL,
-	BodyText            TEXT,
-	TimeStamp TEXT DEFAULT CURRENT_TIMESTAMP,
-    Reactions           TEXT,
+CREATE TABLE Conversations(
+    ConvoID     INTEGER NOT NULL PRIMARY KEY,
+    PersonID    INTEGER NOT NULL,
+	BodyText    TEXT,
+	TimeStamp   TEXT DEFAULT CURRENT_TIMESTAMP,
+    Reactions   TEXT,
     FOREIGN KEY(PersonID) REFERENCES Personas(PersonID)
 );
 
-INSERT INTO Personas (FirstNameAtBirth,LastNameAtBirth,MidNameAtBirth,discordID,githubID)
-VALUES("Cortana","Elizabeth","Halsey",NULL,NULL); -- this is the name of your shikigami, and any ids
+INSERT INTO Personas (FamilyName,GivenName,AddtnlName)
+VALUES("Halsey","Cortana","Elizabeth"); -- this is the name of your shikigami, and any ids
 
 COMMIT;
+-- .quit
