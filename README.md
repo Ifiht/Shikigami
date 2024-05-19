@@ -7,6 +7,11 @@
 # Shikigami
 Personal conjured assistant template for fellow onmyōji :bookmark:
 
+## Vision
+A self-contained, learning, fully offline virtual assistant. This requires gigabytes of space for all the AI models (llama, wav2vec, etc.), probably a GPU if you expect semi-normal response times, and a decent CPU as well, plus peripherals (camera, mic, speakers, etc.).
+
+This project doesn't use any APIs, and while in theory it could all run on one beast of a machine, in practice it is designed to allow each module to run independently across as many systems as needed, as long as they all share secure LAN access to the beanstalkd process.
+
 ## Setup:
 Start by running `init.sh` after you create your own `config.yml` file.
 
