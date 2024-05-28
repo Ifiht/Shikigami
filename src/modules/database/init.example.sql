@@ -22,11 +22,13 @@ CREATE TABLE Personas(
 );
 
 CREATE TABLE Conversations(
-    ConvoID     INTEGER NOT NULL PRIMARY KEY,
-    PersonID    INTEGER NOT NULL,
-	BodyText    TEXT,
-	TimeStamp   TEXT DEFAULT CURRENT_TIMESTAMP,
-    Reactions   TEXT,
+    ConversationID  INTEGER NOT NULL PRIMARY KEY,
+    PersonID        INTEGER NOT NULL,
+    Location        TEXT,
+    Participants    TEXT,
+	BodyText        TEXT,
+	TimeStamp       TEXT DEFAULT CURRENT_TIMESTAMP,
+    Reactions       TEXT,
     FOREIGN KEY(PersonID) REFERENCES Personas(PersonID)
 );
 

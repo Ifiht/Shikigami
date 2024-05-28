@@ -99,10 +99,12 @@ end #def
 }
 @sprig.add_thread {
   bot = Discordrb::Bot.new token: @discord_token
-  bot.message(starting_with: "<@1211423563475849236>") do |event|
+  #bot.message(starting_with: "<@1211423563475849236>") do |event|
+  bot.mention do |event|
     respond(event)
   end
-  bot.message(starting_with: "<@&1211432785353637999>") do |event|
+  #bot.message(starting_with: "<@&1211432785353637999>") do |event|
+  bot.mention do |event|
     respond(event)
   end
   at_exit { bot.stop }
