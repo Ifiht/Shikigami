@@ -71,7 +71,7 @@ end #def
 
 # Discord chat logic to receive msg and send response
 def respond(e)
-  @sprig.pm2_log("Received msg: #{e.message.content}")
+  #@sprig.pm2_log("Received msg: #{e.message.content}")
   msg_body = e.message.content.gsub("<@1211423563475849236>", "Wayland").gsub("<@&1211432785353637999>", "Wayland").to_s
   e.channel.start_typing
   a = ask_question(INST + CHAT + "\n@User: " + msg_body + "\n@Wayland:")
@@ -101,7 +101,10 @@ end #def
   bot = Discordrb::Bot.new token: @discord_token
   #bot.message(starting_with: "<@1211423563475849236>") do |event|
   #bot.message(starting_with: "<@&1211432785353637999>") do |event|
+  bot.message do |event|
+    @sprig.pm2_log("Received message #{event.message}")
   bot.mention do |event|
+    @sprig.pm2_log("Responding to event")
     respond(event)
   end
   at_exit { bot.stop }
