@@ -103,6 +103,7 @@ end #def
   #bot.message(starting_with: "<@&1211432785353637999>") do |event|
   bot.message do |event|
     @sprig.pm2_log("Received message #{event.message}")
+  end
   bot.mention do |event|
     @sprig.pm2_log("Responding to event")
     respond(event)
