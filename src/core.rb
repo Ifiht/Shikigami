@@ -15,7 +15,7 @@ core_config = RedFairy.new("shikigami")
 @sprig = Spriggan.new(
   beanstalk_host: @beanstalk_host,
   beanstalk_port: @beanstalk_port,
-  module_name: "core"
+  module_name: "core",
 )
 
 #=============<[ Methods ]>==================#
