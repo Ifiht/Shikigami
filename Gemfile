@@ -2,7 +2,7 @@ source "https://rubygems.org"
 #gem "telegram-bot-ruby", "~> 1.0" -- not used right now
 gem "solargraph"
 gem "beaneater"
-gem "discordrb"
+gem "discordrb", :git => "https://github.com/Ifiht/discordrb.git", :branch => "main"
 gem "net-ping", "~> 1.7", ">= 1.7.8"
 gem "jemalloc"
 gem "spriggan", :git => "https://github.com/Ifiht/Spriggan", :branch => "main"
