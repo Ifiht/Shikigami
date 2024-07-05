@@ -12,6 +12,9 @@
 node_modules/
 /src/modules/llama/models
 /src/modules/llama/llama.log
+/src/modules/database/init.sql
+/src/modules/database/shikigami.db
+
 
 # Used by dotenv library to load environment variables.
 # .env
@@ -56,30 +59,3 @@ node_modules/
 # OS-specific files:
 *.DS_Store
 *\:Zone.Identifier
-
-# Ignore all environment files (except templates).
-/webview/.env*
-!/webview/.env*.erb
-
-# Ignore all logfiles and tempfiles.
-/webview/log/*
-/webview/tmp/*
-!/webview/log/.keep
-!/webview/tmp/.keep
-
-# Ignore pidfiles, but keep the directory.
-/webview/tmp/pids/*
-!/webview/tmp/pids/
-!/webview/tmp/pids/.keep
-
-# Ignore storage (uploaded files in development and any SQLite databases).
-/webview/storage/*
-!/webview/storage/.keep
-/webview/tmp/storage/*
-!/webview/tmp/storage/
-!/webview/tmp/storage/.keep
-
-/webview/public/assets
-
-# Ignore master key for decrypting credentials and more.
-/webview/config/master.key
