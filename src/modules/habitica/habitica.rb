@@ -2,7 +2,7 @@
 require "redfairy"
 require "spriggan"
 #==========<[ Local Libs ]>==========#
-require_relative "lib_habitica"
+require "./lib_habitica"
 
 #=============<[ Local Vars ]>================#
 core_config = RedFairy.new("shikigami")

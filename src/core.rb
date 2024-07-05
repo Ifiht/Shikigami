@@ -7,7 +7,6 @@ core_config = RedFairy.new("shikigami")
 
 #=============<[ Instance Vars ]>=============#
 @cwd = %x(pwd).chomp
-@procs = []
 @modules1 = []
 @modules2 = []
 @beanstalk_host = core_config.get("beanstalk_host")
@@ -46,7 +45,7 @@ end #def
 }
 @sprig.add_thread {
   loop do
-    @modules2 = %x[ ls #{cwd}/src/modules ].split
+    @modules2 = %x[ ls #{@cwd}/src/modules ].split
     if @modules1 != @modules2
       @modules1 = @modules2
       pm2_proclist = @sprig.pm2_procs
@@ -54,8 +53,8 @@ end #def
         if pm2_proclist.include? m
           @sprig.pm2_log("Skipping running module: #{m}")
         else
-          if %x[ ls #{cwd}/src/modules/#{m} ].split.include? "wrapper.sh"
-            %x[ cd #{cwd}/src/modules/#{m} && pm2 start #{cwd}/src/modules/#{m}/wrapper.sh --name #{m}]
+          if %x[ ls #{@cwd}/src/modules/#{m} ].split.include? "wrapper.sh"
+            %x[ cd #{@cwd}/src/modules/#{m} && pm2 start #{@cwd}/src/modules/#{m}/wrapper.sh --name #{m}]
             @sprig.pm2_log("Starting module: #{m}")
           else
             @sprig.pm2_log("No wrapper for module: #{m}")
