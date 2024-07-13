@@ -104,7 +104,7 @@ end #def
   bot.message do |event|
     @sprig.pm2_log("Received message #{event.message}")
   end
-  bot.mention do |event|
+  bot.mention(allow_role_mention: true) do |event|
     @sprig.pm2_log("Responding to event")
     respond(event)
   end
