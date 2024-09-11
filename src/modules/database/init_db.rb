@@ -1,8 +1,4 @@
 require 'sqlite3'
-# OS Requirements:
-#> sudo apt install -y postgresql-common
-#> sudo /usr/share/postgresql-common/pgdg/apt.postgresql.org.sh
-#> sudo apt install postgresql-16
 
 # Open a database
 db = SQLite3::Database.new "XPlatform_Chat.db"
