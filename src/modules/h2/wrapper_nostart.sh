@@ -1,0 +1,3 @@
+
+
+java -cp h2*.jar org.h2.tools.Server -pg -baseDir ./data
