@@ -14,6 +14,7 @@ node_modules/
 /src/modules/llama/llama.log
 /src/modules/database/init.sql
 /src/modules/database/shikigami.db
+/src/modules/h2/data
 
 
 # Used by dotenv library to load environment variables.
