@@ -14,5 +14,6 @@ gem "http"
 gem "rake"
 gem "rufo"
 gem "pp"
+gem "pg"
 #gem 'rice' -- this is for torch-rb
 #gem 'torch-rb' -- to be added later

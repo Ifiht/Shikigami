@@ -1,48 +1,19 @@
 #=============<[ Gems ]>=============#
-require "sqlite3"
-require "spriggan"
+require "pg"
 require "redfairy"
 
 #=============<[ Local Vars ]>================#
 core_config = RedFairy.new("shikigami")
 
-#=============<[ Instance Vars ]>=============#
-@cwd = %x(pwd).chomp
-@beanstalk_host = core_config.get("beanstalk_host")
-@beanstalk_port = core_config.get("beanstalk_port")
-@redis = Redis.new(host: "10.0.1.1", port: 6380, db: 15)
+#=============<[ Experimental ]>=============#
+@db_user = core_config.get("db_user")
+@db_pass = core_config.get("db_pass")
 
-@sprig = Spriggan.new(
-  beanstalk_host: @beanstalk_host,
-  beanstalk_port: @beanstalk_port,
-  module_name: "database",
-)
+query = File.read('./init_pgre.sql')
 
-#=============<[ Methods ]>==================#
-# Evaluates a string and logs to PM2 on error
-def eval_string(str)
-  begin
-    eval str
-  rescue SyntaxError
-    @sprig.pm2_log("SyntaxError: #{str}")
-  rescue NameError
-    @sprig.pm2_log("NameError: #{str}")
-  end #begin
-end #def
-
-#============================================#
-#+++-----      <[ Main Body ]>       -----+++#
-#============================================#
-@sprig.add_thread {
-  loop do
-    msg_hash = @sprig.get_msg
-    begin
-      eval_string(msg_hash["msg"])
-    rescue Exception => e
-      @sprig.pm2_log("Rescued job: #{e}")
-    end #begin
-  end #loop
-}
-
-#[[[[[[ RUN THREADS ]]]]]]
-@sprig.run
+conn = PG.connect( host: 'localhost', port: '5435', dbname: 'test1', user: @db_user, password: @db_pass )
+conn.exec( query ) do |results|
+  results.each do |row|
+    puts row.inspect
+  end
+end
