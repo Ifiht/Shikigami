@@ -1,4 +1,5 @@
 #=============<[ Gems ]>=============#
+require "pg"
 require "http"
 require "json"
 require "spriggan"
@@ -12,10 +13,9 @@ CHAT = "\n@User: Hello.\n@Wayland: Greetings.\n@User: What do you call yourself?
 core_config = RedFairy.new("shikigami")
 
 #=============<[ Instance Vars ]>=============#
-@cwd = %x(pwd).chomp
-@procs = []
-@modules1 = []
-@modules2 = []
+@answer = ""
+@db_user = core_config.get("db_user")
+@db_pass = core_config.get("db_pass")
 @beanstalk_host = core_config.get("beanstalk_host")
 @beanstalk_port = core_config.get("beanstalk_port")
 
@@ -25,18 +25,9 @@ core_config = RedFairy.new("shikigami")
   module_name: "chat",
 )
 
-#=============<[ Methods ]>==================#
-# Evaluates a string and logs to PM2 on error
-def eval_string(str)
-  begin
-    eval str
-  rescue SyntaxError
-    @sprig.pm2_log("SyntaxError: #{str}")
-  rescue NameError
-    @sprig.pm2_log("NameError: #{str}")
-  end #begin
-end #def
+@conn = PG.connect( dbname: 'shikigami' )
 
+#=============<[ Methods ]>==================#
 # Parameters passed to llama.cpp running Llama 3
 def format_question(prompt)
   i = rand(99)
@@ -72,17 +63,15 @@ def ask_question(q)
 end #def
 
 # Discord chat logic to receive msg and send response
-def respond(e)
-  @sprig.pm2_log("Received msg: #{e.message.content}")
-  msg_body = e.message.content.gsub("<@1211423563475849236>", "Wayland").gsub("<@&1211432785353637999>", "Wayland").to_s
-  e.channel.start_typing
-  a = ask_question(INST + CHAT + "\n@User: " + msg_body + "\n@Wayland:")
-  @sprig.pm2_log("Sending msg: #{a}")
-  if a.include? "@Wayland:"
-    e.respond a.gsub("@Wayland:", "").to_s
-  else
-    e.respond a.to_s
+def get_response(question)
+  @sprig.pm2_log("Received msg: #{question}")
+  answer = ask_question(INST + CHAT + "\n@User: " + question + "\n@Wayland:")
+  @sprig.pm2_log("Sending msg: #{answer}")
+  if answer.include? "@Wayland:"
+    @sprig.pm2_log("@Wayland string detected, removing..")
+    answer.gsub!("@Wayland:", "").to_s
   end #if
+  return answer.to_s
 end #def
 
 #============================================#
@@ -92,10 +81,12 @@ end #def
   loop do
     msg_hash = @sprig.get_msg
     begin
-      eval_string(msg_hash["msg"])
+      @answer = get_response(msg_hash["msg"])
     rescue Exception => e
       @sprig.pm2_log("Rescued job: #{e}")
     end #begin
+    send_msg(answer, msg_hash["from"])
+    @answer = ""
   end #loop
 }
 

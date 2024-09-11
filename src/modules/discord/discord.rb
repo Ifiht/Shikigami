@@ -71,8 +71,12 @@ end #def
 
 # Discord chat logic to receive msg and send response
 def respond(e)
-  #@sprig.pm2_log("Received msg: #{e.message.content}")
-  msg_body = e.message.content.gsub("<@1211423563475849236>", "Wayland").gsub("<@&1211432785353637999>", "Wayland").gsub("<@&1231807399833243681>", "Wayland").to_s
+  if e.message.content.nil?
+    msg_body = "@SYSTEM: this message was unexpectedly deleted."
+  else
+    #@sprig.pm2_log("Received msg: #{e.message.content}")
+    msg_body = e.message.content.gsub("<@1211423563475849236>", "Wayland").gsub("<@&1211432785353637999>", "Wayland").gsub("<@&1231807399833243681>", "Wayland").to_s
+  end
   e.channel.start_typing
   a = ask_question(INST + CHAT + "\n@User: " + msg_body + "\n@Wayland:")
   @sprig.pm2_log("Sending msg: #{a}")
