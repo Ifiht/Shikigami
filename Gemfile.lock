@@ -14,7 +14,7 @@ GIT
 
 GIT
   remote: https://github.com/Ifiht/Spriggan
-  revision: 32e9dc1ff6cdd663120d90b43389043e0bd78255
+  revision: 79c049d9512f0a9e8c5dbec072f754e68c3b3ddb
   branch: main
   specs:
     spriggan (0.1.9)
