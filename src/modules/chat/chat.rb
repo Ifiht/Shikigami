@@ -31,12 +31,13 @@ core_config = RedFairy.new("shikigami")
 # Parameters passed to llama.cpp running Llama 3
 def format_question(prompt, sender)
   i = rand(99)
+  jstop = "\n#{sender}:"
   request = {
     "stream" => false,        # keep false, breaks if true
     "seed" => i,              # Set the random number generator (RNG) seed.
     "n_predict" => 500,       # notes
     "temperature" => 0.56,    # was:0, def:0-1, higher is more creative (0.49 failed to answer question about unicorns)
-    "stop" => ["\n#{sender}:", "\nUser:"],   # notes
+    "stop" => [jstop, "\nUser:"],   # notes
     "repeat_last_n" => 128,   # Last n tokens to consider for penalizing repetition. 0 is disabled and -1 is ctx-size.
     "repeat_penalty" => 1.2,  # Control the repetition of token sequences in the generated text.
     "top_k" => 34,            # def:40, Limit the next token selection to the K most probable tokens.
@@ -51,7 +52,7 @@ def format_question(prompt, sender)
     "mirostat_eta" => 0.1,    # Set the Mirostat learning rate, parameter eta.
     "prompt" => prompt,       # https://github.com/ggerganov/llama.cpp/blob/master/examples/server/README.md
   }
-  return request
+  return request.to_json
 end #def
 
 # HTTP request interface to llama.cpp server
