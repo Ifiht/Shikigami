@@ -85,7 +85,7 @@ end #def
     rescue Exception => e
       @sprig.pm2_log("Rescued job: #{e}")
     end #begin
-    @sprig.send_msg(answer, msg_hash["from"])
+    @sprig.send_msg(@answer, msg_hash["from"])
     @answer = ""
   end #loop
 }

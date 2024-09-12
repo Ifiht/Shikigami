@@ -39,7 +39,7 @@ end #def
     begin
       eval_string(msg_hash["msg"])
     rescue Exception => e
-      @sprig.pm2_log("Rescued job: #{e}")
+      @sprig.pm2_log("Rescued eval: #{e}")
     end #begin
   end #loop
 }
