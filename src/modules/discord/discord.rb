@@ -26,7 +26,7 @@ def respond(e)
   if e.message.content.nil?
     msg_body = "SYSTEM: this message was unexpectedly deleted."
   else
-    msg_body = e.message.author + ": " + e.message.content.to_s
+    msg_body = e.message.author.username + ": " + e.message.content.to_s
   end
   e.channel.start_typing
   @sprig.send_msg(msg_body, "chat")
