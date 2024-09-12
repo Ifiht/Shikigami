@@ -65,7 +65,7 @@ end #def
 # Discord chat logic to receive msg and send response
 def get_response(question)
   @sprig.pm2_log("Received msg: #{question}")
-  answer = ask_question(INST + CHAT + "\n@User: " + question + "\n@Wayland:")
+  answer = ask_question(INST + CHAT + "\n" + question + "\n@Wayland:")
   @sprig.pm2_log("Sending msg: #{answer}")
   if answer.include? "@Wayland:"
     @sprig.pm2_log("@Wayland string detected, removing..")
@@ -85,7 +85,7 @@ end #def
     rescue Exception => e
       @sprig.pm2_log("Rescued job: #{e}")
     end #begin
-    send_msg(answer, msg_hash["from"])
+    @sprig.send_msg(answer, msg_hash["from"])
     @answer = ""
   end #loop
 }
