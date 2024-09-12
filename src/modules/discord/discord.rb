@@ -32,6 +32,7 @@ def respond(e)
   @sprig.pm2_log("Sending query [#{msg_body}] to chat.rb")
   @sprig.send_msg(msg_body, "chat")
   msg_hash = @sprig.get_msg # expect a message back
+  @sprig.pm2_log("Received response [#{msg_hash.inspect}] from chat.rb")
   a = msg_hash["msg"].to_s
   @sprig.pm2_log("Sending msg: #{a}")
   e.respond a
