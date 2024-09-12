@@ -59,7 +59,6 @@ end #def
     @sprig.pm2_log("Received message #{event.message}")
   end
   bot.mention(allow_role_mention: true) do |event|
-    @sprig.pm2_log("Responding to [#{event.message}]")
     respond(event)
   end
   at_exit { bot.stop }
