@@ -29,6 +29,7 @@ def respond(e)
     msg_body = e.message.author.username + ": " + e.message.content.to_s
   end
   e.channel.start_typing
+  @sprig.pm2_log("Sending query [#{msg_body}] to chat.rb")
   @sprig.send_msg(msg_body, "chat")
   msg_hash = @sprig.get_msg
   a = msg_hash["msg"].to_s
@@ -59,6 +60,7 @@ end #def
     @sprig.pm2_log("Received message #{event.message}")
   end
   bot.mention(allow_role_mention: true) do |event|
+    @sprig.pm2_log("Bot was mentioned")
     respond(event)
   end
   at_exit { bot.stop }
