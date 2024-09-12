@@ -17,6 +17,7 @@ node_modules/
 /src/modules/discord/disc_i2u.yml
 /src/modules/discord/disc_u2i.yml
 /src/modules/h2/data
+/src/modules/discord/msg_example.rb
 
 
 # Used by dotenv library to load environment variables.
