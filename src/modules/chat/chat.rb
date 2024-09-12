@@ -52,7 +52,7 @@ def format_question(prompt, sender)
     "mirostat_eta" => 0.1,    # Set the Mirostat learning rate, parameter eta.
     "prompt" => prompt,       # https://github.com/ggerganov/llama.cpp/blob/master/examples/server/README.md
   }
-  return request.to_json
+  return request
 end #def
 
 # HTTP request interface to llama.cpp server
