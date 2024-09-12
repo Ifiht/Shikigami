@@ -14,6 +14,8 @@ node_modules/
 /src/modules/llama/llama.log
 /src/modules/database/init.sql
 /src/modules/database/shikigami.db
+/src/modules/discord/disc_i2u.yml
+/src/modules/discord/disc_u2i.yml
 /src/modules/h2/data
 
 

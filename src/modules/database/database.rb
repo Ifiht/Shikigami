@@ -11,7 +11,7 @@ core_config = RedFairy.new("shikigami")
 
 query = File.read('./init_pgre.sql')
 
-conn = PG.connect( host: 'localhost', port: '5435', dbname: 'test1', user: @db_user, password: @db_pass )
+conn = PG.connect( host: 'localhost', port: '5435', dbname: 'test1', user: @db_user )
 conn.exec( query ) do |results|
   results.each do |row|
     puts row.inspect
