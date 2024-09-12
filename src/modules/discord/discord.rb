@@ -31,7 +31,7 @@ def respond(e)
   e.channel.start_typing
   @sprig.pm2_log("Sending query [#{msg_body}] to chat.rb")
   @sprig.send_msg(msg_body, "chat")
-  msg_hash = @sprig.get_msg
+  msg_hash = @sprig.get_msg # expect a message back
   a = msg_hash["msg"].to_s
   @sprig.pm2_log("Sending msg: #{a}")
   e.respond a
@@ -41,16 +41,16 @@ end #def
 #+++-----      <[ Main Body ]>       -----+++#
 #============================================#
 # join url: https://discordapp.com/oauth2/authorize?&client_id=1211423563475849236&scope=bot&permissions=274878155840
-@sprig.add_thread {
-  loop do
-    msg_hash = @sprig.get_msg
-    begin
-      eval_string(msg_hash["msg"])
-    rescue Exception => e
-      @sprig.pm2_log("Rescued job: #{e}")
-    end #begin
-  end #loop
-}
+#@sprig.add_thread {
+#  loop do
+#    msg_hash = @sprig.get_msg
+#    begin
+#      eval_string(msg_hash["msg"])
+#    rescue Exception => e
+#      @sprig.pm2_log("Rescued job: #{e}")
+#    end #begin
+#  end #loop
+#}
 
 @sprig.add_thread {
   bot = Discordrb::Bot.new token: @discord_token
