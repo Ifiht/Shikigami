@@ -88,6 +88,12 @@ end #def
 #============================================#
 #+++-----      <[ Main Body ]>       -----+++#
 #============================================#
+# TO-DO:
+# create standard format for all chat messages (online, direct, voice, etc)
+# identify personas in a chat
+# send chat message + response to database for storage
+# restore chat upon reload from database
+#
 @sprig.add_thread {
   loop do
     msg_hash = @sprig.get_msg
