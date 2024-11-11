@@ -1,4 +1,4 @@
-require 'sqlite3'
+require "sqlite3"
 
 # Open a database
 db = SQLite3::Database.new "XPlatform_Chat.db"
@@ -11,7 +11,7 @@ participant_id = db.last_insert_row_id
 platforms = {
   "discord" => "john_doe#1234",
   "twitter" => "@john_doe",
-  "speech_to_text" => "voice_profile_123"
+  "speech_to_text" => "voice_profile_123",
 }
 
 platforms.each do |platform, platform_id|
@@ -41,9 +41,9 @@ db.execute("INSERT INTO conversation_participants (conversation_id, participant_
            [conversation_id, ai_identity_id])
 
 # Example: Insert messages
-db.execute("INSERT INTO messages (conversation_id, participant_identity_id, content) VALUES (?, ?, ?)", 
+db.execute("INSERT INTO messages (conversation_id, participant_identity_id, content) VALUES (?, ?, ?)",
            [conversation_id, discord_identity_id, "Hey Claude, how's it going?"])
-db.execute("INSERT INTO messages (conversation_id, participant_identity_id, content) VALUES (?, ?, ?)", 
+db.execute("INSERT INTO messages (conversation_id, participant_identity_id, content) VALUES (?, ?, ?)",
            [conversation_id, ai_identity_id, "Hello! I'm doing well, thank you for asking. How can I assist you today?"])
 
 # Close the database

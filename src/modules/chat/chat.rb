@@ -25,7 +25,7 @@ core_config = RedFairy.new("shikigami")
   module_name: "chat",
 )
 
-@conn = PG.connect( dbname: 'shikigami' )
+@conn = PG.connect(dbname: "shikigami")
 
 #=============<[ Methods ]>==================#
 # Parameters passed to llama.cpp running Llama 3
