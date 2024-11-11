@@ -9,10 +9,12 @@ gem "spriggan", :git => "https://github.com/Ifiht/Spriggan", :branch => "main"
 gem "redfairy", :git => "https://github.com/Ifiht/RedFairyBook", :branch => "main"
 gem "sibyl", :git => "https://github.com/Ifiht/Sibyl", :branch => "main"
 gem "listen", "~> 2.0"
+gem "sqlite3"
 gem "httpx"
 gem "http"
 gem "rake"
 gem "rufo"
 gem "pp"
+gem "pg"
 #gem 'rice' -- this is for torch-rb
 #gem 'torch-rb' -- to be added later

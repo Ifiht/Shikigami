@@ -61,7 +61,7 @@ Every directory under `modules` with a valid `wrapper.sh` file will automaticall
 - [RedFairyBook Ruby Gem](https://github.com/Ifiht/RedFairyBook/tree/main)
 
 ## Training Data:
-The Large Language Model (LLM) used in this project is currently Llama 3, which is trained on the following:
+The Large Language Model (LLM) used in this project is currently Llama 3.1, which is trained on the following:
 - 67.0% CommonCrawl
 - 15.0% C4
 - 4.5% GitHub

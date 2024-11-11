@@ -39,7 +39,7 @@ end #def
     begin
       eval_string(msg_hash["msg"])
     rescue Exception => e
-      @sprig.pm2_log("Rescued job: #{e}")
+      @sprig.pm2_log("Rescued eval: #{e}")
     end #begin
   end #loop
 }
@@ -54,7 +54,7 @@ end #def
           @sprig.pm2_log("Skipping running module: #{m}")
         else
           if %x[ ls #{@cwd}/src/modules/#{m} ].split.include? "wrapper.sh"
-            %x[ cd #{@cwd}/src/modules/#{m} && pm2 start #{@cwd}/src/modules/#{m}/wrapper.sh --name #{m}]
+            %x[ cd #{@cwd}/src/modules/#{m} && pm2 start #{@cwd}/src/modules/#{m}/wrapper.sh --name #{m} --time]
             @sprig.pm2_log("Starting module: #{m}")
           else
             @sprig.pm2_log("No wrapper for module: #{m}")
