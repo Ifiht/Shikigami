@@ -1,0 +1,49 @@
+plugins {
+    id 'java'
+    id 'application'
+    id 'com.github.johnrengelman.shadow' version '8.1.1' // Latest version of the Shadow plugin
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    // JavaFX dependencies for cross-platform use
+    def javaFXVersion = '20' // Use the JavaFX version that is compatible with your JDK version
+    implementation "org.openjfx:javafx-base:${javaFXVersion}:win"
+    implementation "org.openjfx:javafx-base:${javaFXVersion}:mac"
+    implementation "org.openjfx:javafx-base:${javaFXVersion}:linux"
+    implementation "org.openjfx:javafx-graphics:${javaFXVersion}:win"
+    implementation "org.openjfx:javafx-graphics:${javaFXVersion}:mac"
+    implementation "org.openjfx:javafx-graphics:${javaFXVersion}:linux"
+    implementation "org.openjfx:javafx-controls:${javaFXVersion}:win"
+    implementation "org.openjfx:javafx-controls:${javaFXVersion}:mac"
+    implementation "org.openjfx:javafx-controls:${javaFXVersion}:linux"
+}
+
+application {
+    // Set the main class of the application
+    mainClass = 'DesktopAppTemplate' // Update if your class has a different package
+}
+
+tasks.withType(JavaCompile) {
+    options.encoding = 'UTF-8'
+    options.release.set(11) // Set to your desired Java version (Java 11 is a common choice for compatibility)
+}
+
+// Shadow JAR configuration
+shadowJar {
+    archiveBaseName.set('DesktopAppTemplate')
+    archiveClassifier.set('')
+    archiveVersion.set('1.0.0')
+    mergeServiceFiles() // Necessary for JavaFX compatibility in the bundled JAR
+}
+
+jar {
+    manifest {
+        attributes(
+            'Main-Class': application.mainClass
+        )
+    }
+}
