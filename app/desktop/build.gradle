@@ -1,49 +1,58 @@
 plugins {
     id 'java'
     id 'application'
+    id 'org.openjfx.javafxplugin' version '0.1.0'
     id 'com.github.johnrengelman.shadow' version '8.1.1' // Latest version of the Shadow plugin
 }
 
 repositories {
     mavenCentral()
+    maven { url "https://oss.sonatype.org/content/repositories/snapshots" }
 }
+
+def version = "0.0.2"
+def javaFXVersion = '21'
 
 dependencies {
+    // Sphinx4 Speech-to-Text:
+    compileOnly group: 'edu.cmu.sphinx', name: 'sphinx4-core', version:'5prealpha-SNAPSHOT'
+    compileOnly group: 'edu.cmu.sphinx', name: 'sphinx4-data', version:'5prealpha-SNAPSHOT'
     // JavaFX dependencies for cross-platform use
-    def javaFXVersion = '20' // Use the JavaFX version that is compatible with your JDK version
-    implementation "org.openjfx:javafx-base:${javaFXVersion}:win"
-    implementation "org.openjfx:javafx-base:${javaFXVersion}:mac"
-    implementation "org.openjfx:javafx-base:${javaFXVersion}:linux"
-    implementation "org.openjfx:javafx-graphics:${javaFXVersion}:win"
-    implementation "org.openjfx:javafx-graphics:${javaFXVersion}:mac"
-    implementation "org.openjfx:javafx-graphics:${javaFXVersion}:linux"
-    implementation "org.openjfx:javafx-controls:${javaFXVersion}:win"
-    implementation "org.openjfx:javafx-controls:${javaFXVersion}:mac"
-    implementation "org.openjfx:javafx-controls:${javaFXVersion}:linux"
+    // multi-platform support:
+    runtimeOnly "org.openjfx:javafx-graphics:$javafx.${javaFXVersion}:win"
+    runtimeOnly "org.openjfx:javafx-graphics:$javafx.${javaFXVersion}:linux"
+    runtimeOnly "org.openjfx:javafx-graphics:$javafx.${javaFXVersion}:mac"
 }
 
-application {
-    // Set the main class of the application
-    mainClass = 'DesktopAppTemplate' // Update if your class has a different package
+java {
+    modularity.inferModulePath = true
 }
 
-tasks.withType(JavaCompile) {
-    options.encoding = 'UTF-8'
-    options.release.set(11) // Set to your desired Java version (Java 11 is a common choice for compatibility)
+javafx {
+    version = javaFXVersion
+    modules = [ 'javafx.controls' ]
+}
+mainClassName = 'shikigami.Shikigami'
+
+jar {
+    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+    manifest {
+        attributes 'Main-Class': 'shikigami.Launcher'
+    }
+    from {
+        configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it) }
+    }
 }
 
 // Shadow JAR configuration
-shadowJar {
-    archiveBaseName.set('DesktopAppTemplate')
-    archiveClassifier.set('')
-    archiveVersion.set('1.0.0')
-    mergeServiceFiles() // Necessary for JavaFX compatibility in the bundled JAR
-}
-
-jar {
-    manifest {
-        attributes(
-            'Main-Class': application.mainClass
-        )
-    }
-}
+//shadowJar {
+//    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+//    archiveBaseName.set('Shikigami')
+//    archiveClassifier.set('shadow')
+//    archiveVersion.set(version)
+//    configurations = [project.configurations.runtimeClasspath]
+//    mergeServiceFiles() // Necessary for JavaFX compatibility in the bundled JAR
+//    from {
+//        configurations.compileClasspath.collect { it.isDirectory() ? it : zipTree(it) }
+//    }
+//}
