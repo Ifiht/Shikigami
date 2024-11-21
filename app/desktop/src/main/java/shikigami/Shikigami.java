@@ -4,11 +4,18 @@ import javafx.application.Application;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.ScrollPane;
+import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+
+import javax.swing.*;
+import java.awt.*;
 
 public class Shikigami extends Application {
 
@@ -16,6 +23,7 @@ public class Shikigami extends Application {
     public void start(Stage primaryStage) {
 
         //=====// IMAGES & VIEWS //=====//
+        Image icon = new Image(getClass().getResource("/icon.png").toExternalForm());
         Image avatar = new Image(getClass().getResource("/luka.png").toExternalForm());
         Image squareIcon = new Image(getClass().getResource("/listen.png").toExternalForm());
         Image microphoneIcon = new Image(getClass().getResource("/listen_off.png").toExternalForm());
@@ -87,8 +95,9 @@ public class Shikigami extends Application {
         // Create a scene with automatic scaling for high DPI displays
         Scene scene = new Scene(root, 800, 600);
         scene.getStylesheets().add(getClass().getResource("/styles.css").toExternalForm());
-        primaryStage.setTitle("shikigami.Shikigami");
+        primaryStage.setTitle("Shikigami User Interface (ShUI)");
         primaryStage.setScene(scene);
+        primaryStage.getIcons().add(icon);
         primaryStage.show();
     }
 

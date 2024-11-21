@@ -2,7 +2,8 @@ plugins {
     id 'java'
     id 'application'
     id 'org.openjfx.javafxplugin' version '0.1.0'
-    id 'com.github.johnrengelman.shadow' version '8.1.1' // Latest version of the Shadow plugin
+    id 'org.beryx.jlink' version '2.25.0'
+    //id 'com.github.johnrengelman.shadow' version '8.1.1' // Latest version of the Shadow plugin
 }
 
 repositories {
@@ -41,6 +42,14 @@ jar {
     }
     from {
         configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it) }
+    }
+}
+
+jlink {
+    jpackage {
+        // Adjust the following options based on your target platform
+        imageOptions = ['--icon', 'src/main/resources/icon.png']
+        //installerOptions = ['--win-console']
     }
 }
 
