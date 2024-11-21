@@ -1,10 +1,7 @@
 plugins {
     id 'java'
     id 'application'
-    id 'org.openjfx.javafxplugin' version '0.1.0'
-    id 'org.beryx.jlink' version '2.25.0'
-    //id 'com.github.johnrengelman.shadow' version '8.1.1' // Latest version of the Shadow plugin
-}
+    id 'org.openjfx.javafxplugin' version '0.1.0'}
 
 repositories {
     mavenCentral()
@@ -33,9 +30,10 @@ javafx {
     version = javaFXVersion
     modules = [ 'javafx.controls' ]
 }
-mainClassName = 'shikigami.Shikigami'
 
-jar {
+// mainClassName = 'shikigami.Shikigami'
+
+jar { // should create a fat jar with all deps included
     duplicatesStrategy = DuplicatesStrategy.EXCLUDE
     manifest {
         attributes 'Main-Class': 'shikigami.Launcher'
@@ -44,24 +42,3 @@ jar {
         configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it) }
     }
 }
-
-jlink {
-    jpackage {
-        // Adjust the following options based on your target platform
-        imageOptions = ['--icon', 'src/main/resources/icon.png']
-        //installerOptions = ['--win-console']
-    }
-}
-
-// Shadow JAR configuration
-//shadowJar {
-//    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
-//    archiveBaseName.set('Shikigami')
-//    archiveClassifier.set('shadow')
-//    archiveVersion.set(version)
-//    configurations = [project.configurations.runtimeClasspath]
-//    mergeServiceFiles() // Necessary for JavaFX compatibility in the bundled JAR
-//    from {
-//        configurations.compileClasspath.collect { it.isDirectory() ? it : zipTree(it) }
-//    }
-//}

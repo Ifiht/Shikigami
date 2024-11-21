@@ -1,3 +1,3 @@
 Planned integrations:
- - [Sphinx4 STT](https://github.com/cmusphinx)
+ - [Whisper.cpp ASR](https://github.com/ggerganov/whisper.cpp)
  - [Coqui XTTS](https://github.com/coqui-ai/TTS)
