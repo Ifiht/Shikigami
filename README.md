@@ -66,7 +66,7 @@ Llama 3.1 8B Instruct
 Quantization: Q5_K_M
 llama_model_quantize_internal: model size  = 30633.02 MB
 llama_model_quantize_internal: quant size  =  5459.93 MB
-
+context size: 1200
 ```
 ### Size
 "Context Size" = defines the maximum sequence length the model can process during inference or training. The context size determines how much text the model can "see" at once when generating predictions or understanding the input.  
