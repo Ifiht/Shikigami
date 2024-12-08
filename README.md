@@ -12,8 +12,8 @@ A self-contained, learning, fully offline virtual assistant.
 
 ### Setup:
 1. Start by running `init.sh` after you create your own `config.yml` file.
-2. Run `start.sh` once `ecosystem.config.js` is created.
-3. Run `git submodule update --init --recursive` to pull down beanstalkd, then `cd beanstalkd` and `make`.
+2. Run `git submodule update --init --recursive` to pull down beanstalkd, then `cd beanstalkd` and `make`.
+3. Run `start.sh` once `ecosystem.config.js` is created.
 
 Requires [pm2](https://pm2.keymetrics.io/), [nvm](https://github.com/nvm-sh/nvm), and [rvm](https://github.com/rvm/rvm) under a dedicated user account.
 
