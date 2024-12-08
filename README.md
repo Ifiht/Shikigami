@@ -11,8 +11,11 @@ Personal conjured assistant template for fellow onmyōji :bookmark:
 A self-contained, learning, fully offline virtual assistant.
 
 ### Setup:
-Start by running `init.sh` after you create your own `config.yml` file. Follow up with `start.sh` once `ecosystem.config.js` is created.  
-Requires [pm2](https://pm2.keymetrics.io/), [nvm](https://github.com/nvm-sh/nvm) and [rvm](https://github.com/rvm/rvm) under a dedicated user account.
+1. Start by running `init.sh` after you create your own `config.yml` file.
+2. Run `start.sh` once `ecosystem.config.js` is created.
+3. Run `git submodule update --init --recursive` to pull down beanstalkd, then `cd beanstalkd` and `make`.
+
+Requires [pm2](https://pm2.keymetrics.io/), [nvm](https://github.com/nvm-sh/nvm), and [rvm](https://github.com/rvm/rvm) under a dedicated user account.
 
 ### Architecture:
 ```
