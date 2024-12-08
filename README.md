@@ -8,16 +8,11 @@
 Personal conjured assistant template for fellow onmyōji :bookmark:
 
 ### Vision
-A self-contained, learning, fully offline virtual assistant. This requires gigabytes of space for all the AI models (llama, wav2vec, etc.), probably a GPU if you expect semi-normal response times, and a decent CPU as well, plus peripherals (camera, mic, speakers, etc.).
-
-This project doesn't use any APIs, and while in theory it could all run on one beast of a machine, in practice it is designed to allow each module to run independently across as many systems as needed, as long as they all share secure LAN access to the beanstalkd process.
+A self-contained, learning, fully offline virtual assistant.
 
 ### Setup:
-Start by running `init.sh` after you create your own `config.yml` file.
-
-shikigami is meant to be run in parallel as a series of ruby scripts under [pm2](https://pm2.keymetrics.io/) (if you need another process, add it as another ruby script for pm2. Ruby files here respect the GIL).
-
-This is currently the system I use to automate my life, sharing here in case anyone else finds it useful. Recommended to use with [nvm](https://github.com/nvm-sh/nvm) and [rvm](https://github.com/rvm/rvm) under a dedicated user account.
+Start by running `init.sh` after you create your own `config.yml` file. Follow up with `start.sh` once `ecosystem.config.js` is created.  
+Requires [pm2](https://pm2.keymetrics.io/), [nvm](https://github.com/nvm-sh/nvm) and [rvm](https://github.com/rvm/rvm) under a dedicated user account.
 
 ### Architecture:
 ```
