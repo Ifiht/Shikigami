@@ -56,6 +56,7 @@ Every directory under `modules` with a valid `wrapper.sh` file will automaticall
 ### Resources:
 - [llama.cpp](https://github.com/ggerganov/llama.cpp/tree/master)
 - [Llama Family](https://huggingface.co/meta-llama)
+- [NVidia CUDA](https://developer.nvidia.com/cuda-downloads?target_os=Linux&target_arch=x86_64&Distribution=Ubuntu&target_version=24.04&target_type=runfile_local)
 - [Discordrb Ruby Gem](https://github.com/shardlab/discordrb/tree/main)
 - [Spriggan Ruby Gem](https://github.com/Ifiht/Spriggan/blob/main)
 - [RedFairyBook Ruby Gem](https://github.com/Ifiht/RedFairyBook/tree/main)
