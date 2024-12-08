@@ -60,6 +60,13 @@ Every directory under `modules` with a valid `wrapper.sh` file will automaticall
 - [Spriggan Ruby Gem](https://github.com/Ifiht/Spriggan/blob/main)
 - [RedFairyBook Ruby Gem](https://github.com/Ifiht/RedFairyBook/tree/main)
 ## AI
+```
+Llama 3.1 8B Instruct
+Quantization: Q5_K_M
+llama_model_quantize_internal: model size  = 30633.02 MB
+llama_model_quantize_internal: quant size  =  5459.93 MB
+
+```
 ### Size
 "Context Size" = defines the maximum sequence length the model can process during inference or training. The context size determines how much text the model can "see" at once when generating predictions or understanding the input.  
 `Q4_K_S`, `Q4_K_M`, `Q4_K_L`  
