@@ -10,10 +10,14 @@
 /test/version_tmp/
 /tmp/
 node_modules/
+## Llama Files
 /src/modules/llama/models
+/src/modules/llama/llama-server
 /src/modules/llama/llama.log
+## DB Files
 /src/modules/database/init.sql
 /src/modules/database/shikigami.db
+## PII
 /src/modules/discord/disc_i2u.yml
 /src/modules/discord/disc_u2i.yml
 /src/modules/h2/data
