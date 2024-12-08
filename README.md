@@ -70,6 +70,12 @@ In 4-bit quantization, each parameter now requires only 0.5 bytes. For a 70 bill
     
 ### Fine-Tuning
 ** Coming Soon **
+
+### Training
+- [Optimal Tokens](https://arxiv.org/abs/2203.15556)
+- [Avoid AI sources](https://arxiv.org/abs/2305.17493)
+- [Llama 3 Paper](https://scontent-iad3-1.xx.fbcdn.net/v/t39.2365-6/468347782_9231729823505907_4580471254289036098_n.pdf?_nc_cat=110&ccb=1-7&_nc_sid=3c67a6&_nc_ohc=Gou09yQLZqwQ7kNvgHlphYw&_nc_zt=14&_nc_ht=scontent-iad3-1.xx&_nc_gid=AWr4p5C4Ebxrs7DbkH5-qon&oh=00_AYDsB9QkEUQRv5gMpkQkcBRMK7COVfO5tiEo0mUwNIOU_g&oe=675A3A80)
+
 ### Training Data:
 The Large Language Model (LLM) used in this project is currently Llama 3.1, which is trained on the following:
 - 67.0% CommonCrawl
