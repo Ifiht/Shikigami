@@ -2,7 +2,7 @@
 
 # Shikigami
 A personal conjured assistant template for fellow onmyōji :bookmark:  
-Just my take on Neuro-symbolic AI for personal use ¯\_(ツ)_/¯
+Just my take on Neuro-symbolic AI for personal use ¯\\_(ツ)_/¯
 
 ## Purpose
 This repo exists to create the scaffolding needed for an always-on, extensible, LLM-enhanced collection of automated workflows. End goals include:
