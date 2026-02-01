@@ -8,7 +8,7 @@ Just my take on Neuro-symbolic AI for personal use `¯\_(ツ)_/¯`
 This repo exists to create the scaffolding needed for an always-on, extensible, LLM-enhanced collection of automated workflows. End goals include:
 
 - Abstract world model for data
-- Data verification within world models via (SWI-Prolog)[https://www.swi-prolog.org/]
+- Data verification within world models via [SWI-Prolog](https://www.swi-prolog.org/)
 - "Idle" workflows, to expand knowledge base and engage in self-refinement
 
 ## Architecture
