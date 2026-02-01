@@ -13,9 +13,9 @@ This repo exists to create the scaffolding needed for an always-on, extensible, 
 
 ## Architecture
 
-- PM2 for process management
+- [PM2](https://pm2.keymetrics.io/) for process management
 - SQLite3 for data storage (all db entries should be valid assertion or axiom, globally verified)
-- Beanstalkd for message passing
+- [Beanstalkd](https://beanstalkd.github.io/) for message passing
 - Ruby for scripting and task management
 - [Piper-TTS](https://github.com/OHF-Voice/piper1-gpl/tree/main) for speech
 - [Mistral AI's](https://docs.mistral.ai/models/devstral-2-25-12) Devstral-2-Small
