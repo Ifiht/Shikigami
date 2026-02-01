@@ -17,4 +17,6 @@ This repo exists to create the scaffolding needed for an always-on, extensible, 
 - SQLite3 for data storage (all db entries should be valid assertion or axiom, globally verified)
 - Beanstalkd for message passing
 - Ruby for scripting and task management
-- 
+- _What to use for speech?_
+- _What to use for the LLM?_
+- ggerganov's fantastic [llama.cpp](https://github.com/ggml-org/llama.cpp) for inference
