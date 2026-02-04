@@ -18,5 +18,6 @@ This repo exists to create the scaffolding needed for an always-on, extensible, 
 - [Beanstalkd](https://beanstalkd.github.io/) for message passing
 - Ruby for scripting and task management
 - [Piper-TTS](https://github.com/OHF-Voice/piper1-gpl/tree/main) for speech
+- [whisper.cpp](https://github.com/ggml-org/whisper.cpp) for listening
 - [Mistral AI's](https://docs.mistral.ai/models/devstral-2-25-12) Devstral-2-Small
 - ggerganov's fantastic [llama.cpp](https://github.com/ggml-org/llama.cpp) for inference

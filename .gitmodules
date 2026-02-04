@@ -1,0 +1,6 @@
+[submodule "client/mod_piper/piper1-gpl"]
+	path = client/mod_piper/piper1-gpl
+	url = https://github.com/OHF-Voice/piper1-gpl.git
+[submodule "client/mod_whisper/whisper.cpp"]
+	path = client/mod_whisper/whisper.cpp
+	url = https://github.com/ggml-org/whisper.cpp.git
