@@ -13,8 +13,9 @@
 # Used by dotenv library to load environment variables.
 # .env
 
-# Ignore Byebug command history file.
-.byebug_history
+#===> Repo Specific <===#
+/client/mod_piper/voices/
+
 
 ## Specific to RubyMotion:
 .dat*
@@ -54,3 +55,7 @@ build-iPhoneSimulator/
 
 # Used by RuboCop. Remote config files pulled in from inherit_from directive.
 # .rubocop-https?--*
+
+## OS-specific
+.DS_Store
+._*
