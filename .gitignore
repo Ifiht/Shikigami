@@ -14,24 +14,10 @@
 # .env
 
 #===> Repo Specific <===#
+## AI weights
 /client/mod_piper/voices/
-
-
-## Specific to RubyMotion:
-.dat*
-.repl_history
-build/
-*.bridgesupport
-build-iPhoneOS/
-build-iPhoneSimulator/
-
-## Specific to RubyMotion (use of CocoaPods):
-#
-# We recommend against adding the Pods directory to your .gitignore. However
-# you should judge for yourself, the pros and cons are mentioned at:
-# https://guides.cocoapods.org/using/using-cocoapods.html#should-i-check-the-pods-directory-into-source-control
-#
-# vendor/Pods/
+## Executables
+hamelin
 
 ## Documentation cache and generated files:
 /.yardoc/
