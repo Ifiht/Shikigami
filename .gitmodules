@@ -7,3 +7,6 @@
 [submodule "beanstalkd"]
 	path = beanstalkd
 	url = https://github.com/beanstalkd/beanstalkd.git
+[submodule "client/mod_piper/beanstalk-client"]
+	path = client/mod_piper/beanstalk-client
+	url = https://github.com/deepfryed/beanstalk-client.git
