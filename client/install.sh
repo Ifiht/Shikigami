@@ -1,11 +1,5 @@
 #!/bin/zsh
 
-# Install Python 3.11
-curl -O https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh
-bash Miniconda3-latest-Linux-x86_64.sh
-conda create --name shikigami python=3.11
-conda activate shikigami
-
 # Install Node.js and PM2
 curl -fsSL https://deb.nodesource.com/setup_22.x | sudo bash - 
 sudo apt-get install -y nodejs
