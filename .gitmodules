@@ -10,3 +10,6 @@
 [submodule "client/mod_piper/beanstalk-client"]
 	path = client/mod_piper/beanstalk-client
 	url = https://github.com/deepfryed/beanstalk-client.git
+[submodule "server/heretic"]
+	path = server/heretic
+	url = git@github.com:Ifiht/heretic.git
